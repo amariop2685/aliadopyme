@@ -10,6 +10,8 @@ con el dominio administrado en **Cloudflare**.
 |---|---|
 | `index.html` | Página principal: servicios + **calculadora de remuneraciones** con agendamiento de reunión de 15 min |
 | `legal.html` | Landing de **asesoría legal laboral** (contratos a medida, Ley Karin) con calendario del abogado |
+| `prevencion.html` | Landing de **prevención de riesgos** (capacitaciones Ley Karin, DS 44) con calendario del prevencionista |
+| `margenes.html` | **Uso interno** (no enlazada, noindex): tabla de márgenes y comisiones + simuladores |
 | `js/config.js` | **Único archivo que necesitas editar**: precios, WhatsApp, correo y enlaces de agenda |
 | `js/calculadora.js` | Lógica de la calculadora (no requiere edición) |
 | `css/styles.css` | Estilos del sitio |
@@ -21,6 +23,10 @@ con el dominio administrado en **Cloudflare**.
 2. **EMAIL**: correo donde llegan las solicitudes.
 3. **Precios**: todos los valores de la calculadora están en `PRECIOS` (CLP netos).
    Los valores actuales son *referenciales de ejemplo* — ajústalos a tu tarifa real.
+4. **NEGOCIO**: comisión del abogado, tarifas de los prevencionistas y precios al
+   cliente — alimenta la tabla interna de `margenes.html` (cuánto ganas tú en cada
+   servicio). El calendario del prevencionista se configura en `BOOKING_URL_PREVENCION`
+   igual que el del abogado.
 
 ## Calendario del abogado (Google Meet)
 

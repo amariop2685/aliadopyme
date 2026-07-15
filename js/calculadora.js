@@ -75,6 +75,13 @@
       unico += monto;
     }
 
+    if ($("srv-capacitacion").checked) {
+      const cant = Math.max(1, parseInt($("cant-capacitaciones").value, 10) || 1);
+      const monto = cant * CONFIG.PRECIOS.capacitacionPrevencion;
+      lineas.push({ nombre: `Capacitación Ley Karin / prevención de riesgos (${cant} ${cant > 1 ? "sesiones" : "sesión"})`, monto, tipo: "unico" });
+      unico += monto;
+    }
+
     if ($("srv-contratos").checked) {
       const cant = Math.max(1, parseInt($("cant-contratos").value, 10) || 1);
       const monto = cant * CONFIG.PRECIOS.contrato;
