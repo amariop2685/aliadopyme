@@ -11,7 +11,7 @@ const CONFIG = {
   WHATSAPP: "56952284219",
 
   // Correo donde llegan las solicitudes de reunión.
-  EMAIL: "amariop2685@gmail.com",
+  EMAIL: "contacto@aliadopyme.cl",
 
   /* ---------- AGENDAMIENTO ---------- */
   // URL del "Horario de citas" de Google Calendar para la reunión
