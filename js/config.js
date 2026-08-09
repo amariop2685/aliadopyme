@@ -8,8 +8,7 @@ const CONFIG = {
 
   /* ---------- CONTACTO ---------- */
   // Número de WhatsApp en formato internacional, solo dígitos (56 = Chile).
-  // EDITAR: reemplazar por el número real de AliadoPyme.
-  WHATSAPP: "56900000000",
+  WHATSAPP: "56952284219",
 
   // Correo donde llegan las solicitudes de reunión.
   EMAIL: "amariop2685@gmail.com",
