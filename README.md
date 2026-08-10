@@ -11,6 +11,7 @@ con el dominio administrado en **Cloudflare**.
 | `index.html` | Página principal: servicios + **calculadora de remuneraciones** con agendamiento de reunión de 15 min |
 | `legal.html` | Landing de **asesoría legal laboral** (contratos a medida, Ley Karin) con calendario del abogado |
 | `prevencion.html` | Landing de **prevención de riesgos** (capacitaciones Ley Karin, DS 44) con calendario del prevencionista |
+| `tecnologia.html` | Landing de **consultoría tecnológica** (Microsoft 365, Azure, software a medida, web, CRM) con calendario propio |
 | `margenes.html` | **Uso interno** (no enlazada, noindex): tabla de márgenes y comisiones + simuladores |
 | `js/config.js` | **Único archivo que necesitas editar**: precios, WhatsApp, correo y enlaces de agenda |
 | `js/calculadora.js` | Lógica de la calculadora (no requiere edición) |

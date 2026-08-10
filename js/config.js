@@ -31,6 +31,10 @@ const CONFIG = {
   // página prevencion.html (mismo mecanismo que el abogado).
   BOOKING_URL_PREVENCION: "",
 
+  // URL del "Horario de citas" para el diagnóstico de CONSULTORÍA
+  // TECNOLÓGICA (tecnologia.html) — calendario de Mario.
+  BOOKING_URL_TECNOLOGIA: "",
+
   /* ---------- PRECIOS (CLP, netos, referenciales) ---------- */
   PRECIOS: {
     // Remuneraciones mensuales: cargo base + valor por trabajador
