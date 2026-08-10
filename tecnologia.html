@@ -61,6 +61,7 @@
           <li>Teams, SharePoint y OneDrive</li>
           <li>Seguridad y respaldo de la información</li>
         </ul>
+        <p style="margin-top:10px;font-weight:700;color:var(--acento-oscuro)">Desde <span id="precio-m365"></span> + IVA</p>
       </div>
 
       <div class="tarjeta">
@@ -73,6 +74,7 @@
           <li>Administración y monitoreo mensual</li>
           <li>Continuidad operativa ante fallas</li>
         </ul>
+        <p style="margin-top:10px;font-weight:700;color:var(--acento-oscuro)">Migración desde <span id="precio-azure"></span> + IVA</p>
       </div>
 
       <div class="tarjeta">
@@ -95,6 +97,7 @@
           <li>Dominio, correo y hosting configurados</li>
           <li>Optimización para Google (SEO)</li>
         </ul>
+        <p style="margin-top:10px;font-weight:700;color:var(--acento-oscuro)">Desde <span id="precio-web"></span> + IVA</p>
       </div>
 
       <div class="tarjeta">
@@ -106,6 +109,7 @@
           <li>Embudo de ventas y recordatorios</li>
           <li>Capacitación de tu equipo</li>
         </ul>
+        <p style="margin-top:10px;font-weight:700;color:var(--acento-oscuro)">Desde <span id="precio-crm"></span> + IVA</p>
       </div>
 
       <div class="tarjeta">
@@ -117,6 +121,106 @@
           <li>Asesoría en compras tecnológicas</li>
           <li>Plan de tecnología según tu presupuesto</li>
         </ul>
+        <p style="margin-top:10px;font-weight:700;color:var(--acento-oscuro)">Desde <span id="precio-soporte"></span>/mes + IVA</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= COTIZADOR TI ================= -->
+<section id="cotizador-ti">
+  <div class="contenedor">
+    <h2 class="titulo-seccion">Cotiza tu proyecto tecnológico</h2>
+    <p class="subtitulo-seccion">Selecciona lo que necesitas y obtén un valor estimado al
+       instante. El valor definitivo se confirma en el diagnóstico gratuito.</p>
+
+    <div class="calculadora">
+      <div class="campo">
+        <label>¿Qué servicios necesitas?</label>
+        <div class="opciones-servicio">
+
+          <div class="opcion">
+            <input type="checkbox" id="ti-m365" checked>
+            <label class="info" for="ti-m365">
+              <strong>Implementación Microsoft 365</strong>
+              <small>Correo corporativo, Teams, OneDrive y seguridad — indica los usuarios</small>
+              <small style="margin-top:6px">
+                <label style="display:inline-flex;align-items:center;gap:6px;font-weight:400;cursor:pointer">
+                  <input type="checkbox" id="ti-m365-migracion" style="width:15px;height:15px;accent-color:var(--acento)">
+                  Incluye migración del correo actual
+                </label>
+              </small>
+            </label>
+            <input type="number" class="cantidad" id="ti-m365-usuarios" min="1" value="5" title="Cantidad de usuarios">
+          </div>
+
+          <div class="opcion">
+            <input type="checkbox" id="ti-azure">
+            <label class="info" for="ti-azure">
+              <strong>Migración de servidores a Azure</strong>
+              <small>Llevamos tus servidores a la nube, con respaldos y continuidad</small>
+              <small style="margin-top:6px">
+                <label style="display:inline-flex;align-items:center;gap:6px;font-weight:400;cursor:pointer">
+                  <input type="checkbox" id="ti-azure-admin" checked style="width:15px;height:15px;accent-color:var(--acento)">
+                  Con administración y monitoreo mensual
+                </label>
+              </small>
+            </label>
+          </div>
+
+          <div class="opcion">
+            <input type="checkbox" id="ti-soporte">
+            <label class="info" for="ti-soporte">
+              <strong>Soporte mensual</strong>
+              <small>Bolsa de horas para tu equipo: dudas, fallas y mejoras</small>
+            </label>
+            <select id="ti-soporte-horas" class="cantidad" style="width:auto" title="Horas mensuales">
+              <option value="5">5 hrs</option>
+              <option value="10">10 hrs</option>
+              <option value="20">20 hrs</option>
+            </select>
+          </div>
+
+          <div class="opcion">
+            <input type="checkbox" id="ti-web">
+            <label class="info" for="ti-web">
+              <strong>Página web</strong>
+              <small>Con dominio, correo y optimización para Google</small>
+            </label>
+            <select id="ti-web-tipo" class="cantidad" style="width:auto" title="Tipo de sitio">
+              <option value="landing">Landing</option>
+              <option value="corporativa">Corporativa</option>
+            </select>
+          </div>
+
+          <div class="opcion">
+            <input type="checkbox" id="ti-crm">
+            <label class="info" for="ti-crm">
+              <strong>Implementación CRM</strong>
+              <small>HubSpot, Zoho u otro: embudo de ventas y capacitación del equipo</small>
+            </label>
+          </div>
+
+        </div>
+      </div>
+
+      <p id="ti-error" style="color:#c0392b;font-size:0.9rem;margin-bottom:10px"></p>
+      <div class="acciones-paso">
+        <button class="btn" id="ti-btn-calcular" type="button">Ver valor estimado →</button>
+      </div>
+
+      <div id="ti-resultado" style="display:none;margin-top:24px">
+        <h3 style="color:var(--azul);margin-bottom:16px">Tu valor estimado</h3>
+        <div class="resumen">
+          <table><tbody id="ti-resumen-cuerpo"></tbody></table>
+        </div>
+        <p class="nota-precio">* Valores referenciales netos (+ IVA). Hora de consultoría
+           adicional: <span id="precio-hora"></span>. El valor definitivo se confirma en el
+           diagnóstico gratuito según tu infraestructura actual.</p>
+        <div class="acciones-paso">
+          <a class="btn btn-whatsapp" id="ti-cotizar-whatsapp" target="_blank" rel="noopener">Agendar diagnóstico por WhatsApp</a>
+          <a class="btn btn-secundario" id="ti-cotizar-correo">Enviar por correo</a>
+        </div>
       </div>
     </div>
   </div>
@@ -203,7 +307,8 @@
   </div>
 </footer>
 
-<script src="js/config.js"></script>
+<script src="js/config.js?v=20260810"></script>
+<script src="js/cotizador-ti.js?v=20260810"></script>
 <script>
   document.getElementById("footer-email").href = "mailto:" + CONFIG.EMAIL;
   document.getElementById("footer-email").textContent = CONFIG.EMAIL;

@@ -101,6 +101,21 @@
       </div>
     </div>
 
+    <!-- ===== Tecnología ===== -->
+    <div class="bloque">
+      <h2>💻 Tecnología — servicios propios</h2>
+      <p>Servicios que presta Mario directamente: el margen es 100% de AliadoPyme
+         (el costo es tu tiempo). Precios en <code>PRECIOS_TI</code> de config.js.</p>
+      <div style="overflow-x:auto">
+        <table class="tabla-margen">
+          <thead>
+            <tr><th>Servicio</th><th style="text-align:right">Cliente paga</th></tr>
+          </thead>
+          <tbody id="tabla-ti"></tbody>
+        </table>
+      </div>
+    </div>
+
     <!-- ===== Simulador general ===== -->
     <div class="bloque">
       <h2>🧮 Simulador general — ¿a cuánto vender?</h2>
@@ -130,7 +145,7 @@
   </div>
 </footer>
 
-<script src="js/config.js"></script>
+<script src="js/config.js?v=20260810"></script>
 <script>
 (function () {
   const CLP = new Intl.NumberFormat("es-CL", { style: "currency", currency: "CLP", maximumFractionDigits: 0 });
@@ -159,6 +174,27 @@
       `<tr><td>${s.servicio}</td><td class="num">${CLP.format(s.honorario)}</td>` +
       `<td class="num ganancia">${CLP.format(com)}</td>` +
       `<td class="num">${CLP.format(s.honorario - com)}</td></tr>`);
+  });
+
+  /* Tabla tecnología (servicios propios) */
+  const ti = CONFIG.PRECIOS_TI;
+  const filasTI = [
+    ["Hora de consultoría / soporte", CLP.format(ti.horaConsultoria)],
+    ["Implementación Microsoft 365 (por usuario, mín. " + CLP.format(ti.m365Minimo) + ")", CLP.format(ti.m365PorUsuario)],
+    ["Migración de correo (adicional por usuario)", CLP.format(ti.migracionCorreoPorUsuario)],
+    ["Migración de servidores a Azure (desde)", CLP.format(ti.migracionAzure)],
+    ["Administración Azure mensual", CLP.format(ti.adminAzureMensual) + "/mes"],
+    ["Soporte mensual 5 hrs", CLP.format(ti.soporteMensualHoras[5]) + "/mes"],
+    ["Soporte mensual 10 hrs", CLP.format(ti.soporteMensualHoras[10]) + "/mes"],
+    ["Soporte mensual 20 hrs", CLP.format(ti.soporteMensualHoras[20]) + "/mes"],
+    ["Landing page / sitio simple", CLP.format(ti.webLanding)],
+    ["Sitio web corporativo", CLP.format(ti.webCorporativa)],
+    ["Implementación CRM + capacitación", CLP.format(ti.crmImplementacion)],
+  ];
+  const tt = document.getElementById("tabla-ti");
+  filasTI.forEach(([s, v]) => {
+    tt.insertAdjacentHTML("beforeend",
+      `<tr><td>${s}</td><td class="num ganancia">${v}</td></tr>`);
   });
 
   /* Simulador abogado */

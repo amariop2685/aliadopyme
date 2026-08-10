@@ -226,8 +226,16 @@
               <input type="checkbox" id="srv-contabilidad">
               <label class="info" for="srv-contabilidad">
                 <strong>Contabilidad mensual y F29</strong>
-                <small>Registros contables, declaración de IVA y reportes mensuales</small>
+                <small>Registros contables, declaración de IVA y reportes — el valor depende
+                       del movimiento mensual de tu empresa (ventas + compras según SII)</small>
               </label>
+              <select id="ventas-mensuales" class="cantidad" style="width:auto" title="Ventas + compras mensuales según SII">
+                <option value="5000000">Hasta $5M/mes</option>
+                <option value="15000000">$5M – $15M/mes</option>
+                <option value="30000000">$15M – $30M/mes</option>
+                <option value="60000000">$30M – $60M/mes</option>
+                <option value="60000001">Más de $60M/mes</option>
+              </select>
             </div>
 
           </div>
@@ -247,8 +255,10 @@
             <tbody id="resumen-cuerpo"></tbody>
           </table>
         </div>
-        <p class="nota-precio">* Valores referenciales en pesos chilenos, netos (+ IVA). El valor
-           definitivo se confirma en la reunión según las características de tu empresa.</p>
+        <p class="nota-precio">* Valores referenciales en pesos chilenos, netos (+ IVA), calculados
+           en base al ingreso mínimo mensual vigente (<span id="imm-vigente"></span>) — se reajustan
+           junto con él. El valor definitivo se confirma en la reunión según las características
+           de tu empresa.</p>
         <div class="acciones-paso">
           <button class="btn" id="btn-agendar" type="button">Agendar reunión de 15 min →</button>
           <button class="btn btn-secundario" id="btn-volver-1" type="button">← Modificar servicios</button>
@@ -388,8 +398,8 @@
   </div>
 </footer>
 
-<script src="js/config.js"></script>
-<script src="js/calculadora.js"></script>
+<script src="js/config.js?v=20260810"></script>
+<script src="js/calculadora.js?v=20260810"></script>
 <script>
   // Enlaces de contacto del footer desde la configuración
   document.getElementById("footer-email").href = "mailto:" + CONFIG.EMAIL;

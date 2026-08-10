@@ -35,31 +35,71 @@ const CONFIG = {
   // TECNOLÓGICA (tecnologia.html) — calendario de Mario.
   BOOKING_URL_TECNOLOGIA: "",
 
-  /* ---------- PRECIOS (CLP, netos, referenciales) ---------- */
+  /* ---------- SUELDO MÍNIMO (base de cálculo) ----------
+     Ingreso mínimo mensual vigente en Chile. Los precios de los
+     servicios contables y de remuneraciones se expresan como % de
+     este valor, así se reajustan solos: cuando cambie el sueldo
+     mínimo, basta actualizar este número.
+     Vigente desde 01-05-2026 (Ley 21.830).                        */
+  SUELDO_MINIMO: 553553,
+
+  /* ---------- PRECIOS (netos, referenciales) ----------
+     Los campos que terminan en "Pct" son fracción del sueldo mínimo
+     (0.045 = 4,5% del sueldo mínimo). El resultado se redondea a
+     los $500 más cercanos.                                        */
   PRECIOS: {
     // Remuneraciones mensuales: cargo base + valor por trabajador
     // según tramo (liquidaciones de sueldo, Previred, LRE).
     remuneraciones: {
-      base: 30000,
+      basePct: 0.055,             // ≈ $30.500 hoy
       tramos: [
-        { hasta: 5,        porTrabajador: 12000 },
-        { hasta: 20,       porTrabajador: 10000 },
-        { hasta: 50,       porTrabajador: 8500  },
-        { hasta: Infinity, porTrabajador: 7000  },
+        { hasta: 5,        pctPorTrabajador: 0.022  }, // ≈ $12.000 c/u
+        { hasta: 20,       pctPorTrabajador: 0.018  }, // ≈ $10.000 c/u
+        { hasta: 50,       pctPorTrabajador: 0.0155 }, // ≈ $8.500 c/u
+        { hasta: Infinity, pctPorTrabajador: 0.013  }, // ≈ $7.000 c/u
       ],
     },
 
     // Valores por documento / evento (pago único, no mensual)
-    finiquito: 25000,             // por finiquito
-    liquidacionObra: 20000,       // liquidación final de obra o faena, por trabajador
-    contrato: 15000,              // contrato de trabajo o anexo, por documento
+    finiquitoPct: 0.045,          // por finiquito           ≈ $25.000
+    liquidacionObraPct: 0.036,    // final de obra, por trab. ≈ $20.000
+    contratoPct: 0.027,           // contrato o anexo         ≈ $15.000
 
-    // Servicios mensuales de monto fijo
-    conciliacionBancaria: 45000,  // por cuenta bancaria, mensual
-    contabilidadMensual: 80000,   // contabilidad + F29, desde (mensual)
+    // Servicios mensuales
+    conciliacionBancariaPct: 0.08,   // por cuenta bancaria   ≈ $44.500
 
-    // Prevención de riesgos (precio al cliente, por sesión)
-    capacitacionPrevencion: 180000, // capacitación Ley Karin u otra obligatoria
+    // Contabilidad mensual + F29: el valor depende del movimiento
+    // de la empresa (ventas + compras mensuales según SII).
+    // "hasta" = ventas+compras mensuales en CLP; pct = % del sueldo mínimo.
+    contabilidadTramos: [
+      { hasta: 5000000,   pct: 0.145 }, // hasta $5M      ≈ $80.500
+      { hasta: 15000000,  pct: 0.20  }, // $5M a $15M     ≈ $110.500
+      { hasta: 30000000,  pct: 0.27  }, // $15M a $30M    ≈ $149.500
+      { hasta: 60000000,  pct: 0.36  }, // $30M a $60M    ≈ $199.500
+      { hasta: Infinity,  pct: 0.50  }, // sobre $60M     ≈ $276.500 (desde)
+    ],
+
+    // Prevención de riesgos (CLP fijo, precio al cliente por sesión)
+    capacitacionPrevencion: 180000,
+  },
+
+  /* ---------- PRECIOS TECNOLOGÍA (CLP, netos, referenciales) ----
+     Servicios propios de consultoría TI (margen 100% AliadoPyme). */
+  PRECIOS_TI: {
+    horaConsultoria: 50000,           // hora de consultoría / soporte
+    m365PorUsuario: 40000,            // implementación Microsoft 365, por usuario
+    m365Minimo: 200000,               // mínimo del proyecto M365
+    migracionCorreoPorUsuario: 15000, // adicional por usuario si hay migración de correo
+    migracionAzure: 500000,           // migración de servidores a Azure (desde, por proyecto)
+    adminAzureMensual: 150000,        // administración y monitoreo Azure, mensual
+    soporteMensualHoras: {            // bolsas de soporte mensual
+      5: 200000,
+      10: 380000,
+      20: 720000,
+    },
+    webLanding: 400000,               // landing page / sitio simple
+    webCorporativa: 700000,           // sitio corporativo completo
+    crmImplementacion: 400000,        // implementación CRM + capacitación
   },
 
   /* ---------- MODELO DE NEGOCIO (uso interno: margenes.html) ----------

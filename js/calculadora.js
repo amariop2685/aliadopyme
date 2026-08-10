@@ -18,9 +18,15 @@
 
   /* ---------- utilidades ---------- */
 
+  // Convierte una fracción del sueldo mínimo en pesos, redondeando
+  // a los $500 más cercanos (ej: imm(0.045) con IMM $553.553 → $25.000).
+  function imm(pct) {
+    return Math.round((CONFIG.SUELDO_MINIMO * pct) / 500) * 500;
+  }
+
   function valorPorTrabajador(n) {
     const t = CONFIG.PRECIOS.remuneraciones.tramos.find((tr) => n <= tr.hasta);
-    return t ? t.porTrabajador : 0;
+    return t ? imm(t.pctPorTrabajador) : 0;
   }
 
   function marcarOpcion(checkbox) {
@@ -43,34 +49,39 @@
 
     if ($("srv-remuneraciones").checked) {
       const p = CONFIG.PRECIOS.remuneraciones;
-      const monto = p.base + trabajadores * valorPorTrabajador(trabajadores);
+      const monto = imm(p.basePct) + trabajadores * valorPorTrabajador(trabajadores);
       lineas.push({ nombre: `Remuneraciones mensuales (${trabajadores} trabajadores)`, monto, tipo: "mensual" });
       mensual += monto;
     }
 
     if ($("srv-conciliacion").checked) {
       const cuentas = Math.max(1, parseInt($("cant-cuentas").value, 10) || 1);
-      const monto = cuentas * CONFIG.PRECIOS.conciliacionBancaria;
+      const monto = cuentas * imm(CONFIG.PRECIOS.conciliacionBancariaPct);
       lineas.push({ nombre: `Conciliación bancaria (${cuentas} cuenta${cuentas > 1 ? "s" : ""})`, monto, tipo: "mensual" });
       mensual += monto;
     }
 
     if ($("srv-contabilidad").checked) {
-      const monto = CONFIG.PRECIOS.contabilidadMensual;
-      lineas.push({ nombre: "Contabilidad mensual y declaración F29 (desde)", monto, tipo: "mensual" });
+      const sel = $("ventas-mensuales");
+      const ventas = Number(sel.value);
+      const tramo = CONFIG.PRECIOS.contabilidadTramos.find((t) => ventas <= t.hasta);
+      const monto = imm(tramo.pct);
+      const etiqueta = sel.options[sel.selectedIndex].textContent.trim();
+      const esDesde = ventas > 60000000 ? ", desde" : "";
+      lineas.push({ nombre: `Contabilidad mensual y F29 (mov. ${etiqueta}${esDesde})`, monto, tipo: "mensual" });
       mensual += monto;
     }
 
     if ($("srv-finiquitos").checked) {
       const cant = Math.max(1, parseInt($("cant-finiquitos").value, 10) || 1);
-      const monto = cant * CONFIG.PRECIOS.finiquito;
+      const monto = cant * imm(CONFIG.PRECIOS.finiquitoPct);
       lineas.push({ nombre: `Finiquitos (${cant})`, monto, tipo: "unico" });
       unico += monto;
     }
 
     if ($("srv-liquidacion-obra").checked) {
       const cant = Math.max(1, parseInt($("cant-liquidacion").value, 10) || 1);
-      const monto = cant * CONFIG.PRECIOS.liquidacionObra;
+      const monto = cant * imm(CONFIG.PRECIOS.liquidacionObraPct);
       lineas.push({ nombre: `Liquidación final de obra o faena (${cant} trabajadores)`, monto, tipo: "unico" });
       unico += monto;
     }
@@ -84,7 +95,7 @@
 
     if ($("srv-contratos").checked) {
       const cant = Math.max(1, parseInt($("cant-contratos").value, 10) || 1);
-      const monto = cant * CONFIG.PRECIOS.contrato;
+      const monto = cant * imm(CONFIG.PRECIOS.contratoPct);
       lineas.push({ nombre: `Contratos de trabajo o anexos (${cant})`, monto, tipo: "unico" });
       unico += monto;
     }
@@ -218,6 +229,9 @@
     document.querySelectorAll('#calculadora .opcion input[type="checkbox"]').forEach((cb) => {
       cb.addEventListener("change", () => marcarOpcion(cb));
     });
+
+    const spanImm = $("imm-vigente");
+    if (spanImm) spanImm.textContent = CLP.format(CONFIG.SUELDO_MINIMO);
 
     $("btn-calcular").addEventListener("click", calcular);
     $("btn-volver-1").addEventListener("click", () => irAPaso(1));
