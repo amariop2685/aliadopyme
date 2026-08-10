@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1040 260">
+  <!-- AliadoPyme — logo horizontal -->
+  <rect x="10" y="10" width="240" height="240" rx="48" fill="#0b3d5c"/>
+  <text x="130" y="162" font-family="Helvetica, Arial, sans-serif" font-size="136"
+        font-weight="bold" text-anchor="middle" fill="#ffffff">A</text>
+  <polyline points="66,200 113,177 155,188 194,151" fill="none"
+            stroke="#0e9594" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M 194 151 L 173 150 L 190 174 Z" fill="#0e9594" stroke="#0e9594"
+        stroke-width="7" stroke-linejoin="round"/>
+  <text x="290" y="140" font-family="Helvetica, Arial, sans-serif" font-size="104" font-weight="bold">
+    <tspan fill="#0b3d5c">Aliado</tspan><tspan fill="#0e9594">Pyme</tspan>
+  </text>
+  <text x="294" y="205" font-family="Helvetica, Arial, sans-serif" font-size="42" fill="#5a6b7b">
+    Consultora integral para pymes
+  </text>
+</svg>

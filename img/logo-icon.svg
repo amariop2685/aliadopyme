@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- AliadoPyme — ícono: A con curva de crecimiento -->
+  <rect width="512" height="512" rx="102" fill="#0b3d5c"/>
+  <text x="256" y="330" font-family="Helvetica, Arial, sans-serif" font-size="290"
+        font-weight="bold" text-anchor="middle" fill="#ffffff">A</text>
+  <polyline points="120,412 220,364 310,388 392,308" fill="none"
+            stroke="#0e9594" stroke-width="26" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M 392 308 L 348 306 L 384 356 Z" fill="#0e9594" stroke="#0e9594"
+        stroke-width="14" stroke-linejoin="round"/>
+</svg>
