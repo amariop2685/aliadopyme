@@ -81,6 +81,18 @@ const CONFIG = {
 
     // Prevención de riesgos (CLP fijo, precio al cliente por sesión)
     capacitacionPrevencion: 180000,
+
+    // Prevencionista de riesgos mensual: visita semanal + toda la
+    // documentación de prevención al día. Precio al cliente según
+    // cantidad de trabajadores (referencia real de mercado:
+    // 44 trabajadores → $260.000/mes).
+    prevencionistaMensual: [
+      { hasta: 10,       precio: 120000 },
+      { hasta: 25,       precio: 180000 },
+      { hasta: 50,       precio: 260000 },
+      { hasta: 100,      precio: 350000 },
+      { hasta: Infinity, precio: 450000 }, // sobre 100, desde
+    ],
   },
 
   /* ---------- PRECIOS TECNOLOGÍA (CLP, netos, referenciales) ----
@@ -124,7 +136,7 @@ const CONFIG = {
     prevencion: [
       { servicio: "Capacitación Ley Karin (hasta 20 asistentes)",     cliente: 180000, profesional: 120000 },
       { servicio: "Protocolo de prevención Ley Karin (documento)",    cliente: 250000, profesional: 170000 },
-      { servicio: "Asesoría mensual prevención de riesgos (DS 44)",   cliente: 200000, profesional: 140000 },
+      { servicio: "Prevencionista mensual 26-50 trab. (visita semanal + documentación)", cliente: 260000, profesional: 190000 },
       { servicio: "Otra capacitación obligatoria (por sesión)",       cliente: 150000, profesional: 100000 },
     ],
   },

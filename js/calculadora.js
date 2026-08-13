@@ -86,6 +86,17 @@
       unico += monto;
     }
 
+    if ($("srv-prevencionista").checked) {
+      const tramo = CONFIG.PRECIOS.prevencionistaMensual.find((t) => trabajadores <= t.hasta);
+      const esDesde = trabajadores > 100 ? ", desde" : "";
+      lineas.push({
+        nombre: `Prevencionista de riesgos mensual (${trabajadores} trabajadores, visita semanal${esDesde})`,
+        monto: tramo.precio,
+        tipo: "mensual",
+      });
+      mensual += tramo.precio;
+    }
+
     if ($("srv-capacitacion").checked) {
       const cant = Math.max(1, parseInt($("cant-capacitaciones").value, 10) || 1);
       const monto = cant * CONFIG.PRECIOS.capacitacionPrevencion;
