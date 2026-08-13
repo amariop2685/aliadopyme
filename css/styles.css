@@ -86,7 +86,7 @@ header {
 /* ---------- Botones ---------- */
 .btn {
   display: inline-block;
-  background: var(--acento);
+  background: var(--acento-oscuro);
   color: var(--blanco);
   padding: 12px 26px;
   border-radius: 8px;
@@ -98,7 +98,7 @@ header {
   transition: background 0.15s ease;
 }
 
-.btn:hover { background: var(--acento-oscuro); }
+.btn:hover { background: #085757; }
 
 .btn-secundario {
   background: transparent;
@@ -108,8 +108,8 @@ header {
 
 .btn-secundario:hover { background: var(--azul); color: var(--blanco); }
 
-.btn-whatsapp { background: #25d366; }
-.btn-whatsapp:hover { background: #1da851; }
+.btn-whatsapp { background: #075e54; }
+.btn-whatsapp:hover { background: #054d44; }
 
 /* ---------- Hero ---------- */
 .hero {
@@ -371,7 +371,7 @@ section { padding: 70px 0; }
   margin-bottom: 12px;
 }
 
-.paso-item h4 { color: var(--azul); margin-bottom: 6px; font-size: 1rem; }
+.paso-item h3.paso-titulo { color: var(--azul); margin-bottom: 6px; font-size: 1rem; }
 .paso-item p { color: var(--texto-suave); font-size: 0.9rem; }
 
 /* ---------- Landing legal ---------- */
