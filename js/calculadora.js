@@ -123,7 +123,7 @@
     if ($("srv-contratos").checked) {
       const cant = Math.max(1, parseInt($("cant-contratos").value, 10) || 1);
       const monto = cant * uf(CONFIG.PRECIOS.contratoUF);
-      lineas.push({ nombre: `Contratos de trabajo o anexos (${cant} × ${CONFIG.PRECIOS.contratoUF} UF)`, monto, tipo: "unico" });
+      lineas.push({ nombre: `Contrato tipo o anexo (${cant} × ${CONFIG.PRECIOS.contratoUF} UF)`, monto, tipo: "unico" });
       unico += monto;
     }
 
