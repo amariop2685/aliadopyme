@@ -69,7 +69,7 @@ const CONFIG = {
 
     // Documentos laborales: precio en UF por documento.
     // Regla de negocio: el mínimo siempre es 1 UF.
-    finiquitoUF: 1,        // por finiquito
+    finiquitoUF: 1.5,      // por finiquito
     liquidacionObraUF: 1,  // final de obra o faena, por trabajador
     contratoUF: 1,         // contrato de trabajo o anexo
 

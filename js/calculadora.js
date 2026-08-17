@@ -40,6 +40,11 @@
     return Math.round((n * valorUF) / 500) * 500;
   }
 
+  // Formato chileno para cantidades en UF (1.5 → "1,5")
+  function ufTxt(n) {
+    return String(n).replace(".", ",");
+  }
+
   function valorPorTrabajador(n) {
     const t = CONFIG.PRECIOS.remuneraciones.tramos.find((tr) => n <= tr.hasta);
     return t ? imm(t.pctPorTrabajador) : 0;
@@ -91,14 +96,14 @@
     if ($("srv-finiquitos").checked) {
       const cant = Math.max(1, parseInt($("cant-finiquitos").value, 10) || 1);
       const monto = cant * uf(CONFIG.PRECIOS.finiquitoUF);
-      lineas.push({ nombre: `Finiquitos (${cant} × ${CONFIG.PRECIOS.finiquitoUF} UF)`, monto, tipo: "unico" });
+      lineas.push({ nombre: `Finiquitos (${cant} × ${ufTxt(CONFIG.PRECIOS.finiquitoUF)} UF)`, monto, tipo: "unico" });
       unico += monto;
     }
 
     if ($("srv-liquidacion-obra").checked) {
       const cant = Math.max(1, parseInt($("cant-liquidacion").value, 10) || 1);
       const monto = cant * uf(CONFIG.PRECIOS.liquidacionObraUF);
-      lineas.push({ nombre: `Liquidación final de obra o faena (${cant} trabajadores × ${CONFIG.PRECIOS.liquidacionObraUF} UF)`, monto, tipo: "unico" });
+      lineas.push({ nombre: `Liquidación final de obra o faena (${cant} trabajadores × ${ufTxt(CONFIG.PRECIOS.liquidacionObraUF)} UF)`, monto, tipo: "unico" });
       unico += monto;
     }
 
@@ -123,7 +128,7 @@
     if ($("srv-contratos").checked) {
       const cant = Math.max(1, parseInt($("cant-contratos").value, 10) || 1);
       const monto = cant * uf(CONFIG.PRECIOS.contratoUF);
-      lineas.push({ nombre: `Contrato tipo o anexo (${cant} × ${CONFIG.PRECIOS.contratoUF} UF)`, monto, tipo: "unico" });
+      lineas.push({ nombre: `Contrato tipo o anexo (${cant} × ${ufTxt(CONFIG.PRECIOS.contratoUF)} UF)`, monto, tipo: "unico" });
       unico += monto;
     }
 
