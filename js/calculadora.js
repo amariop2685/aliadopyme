@@ -16,12 +16,28 @@
 
   let cotizacion = null; // resultado del último cálculo
 
+  // Valor de la UF: parte con el respaldo de config y se actualiza
+  // con el valor del día desde mindicador.cl (API pública gratuita).
+  let valorUF = CONFIG.UF_FALLBACK;
+  fetch("https://mindicador.cl/api/uf")
+    .then((r) => r.json())
+    .then((d) => {
+      const v = d && d.serie && d.serie[0] && d.serie[0].valor;
+      if (v > 0) valorUF = v;
+    })
+    .catch(() => {}); // sin conexión a la API se usa el respaldo
+
   /* ---------- utilidades ---------- */
 
   // Convierte una fracción del sueldo mínimo en pesos, redondeando
   // a los $500 más cercanos (ej: imm(0.045) con IMM $553.553 → $25.000).
   function imm(pct) {
     return Math.round((CONFIG.SUELDO_MINIMO * pct) / 500) * 500;
+  }
+
+  // Convierte UF a pesos, redondeando a los $500 más cercanos.
+  function uf(n) {
+    return Math.round((n * valorUF) / 500) * 500;
   }
 
   function valorPorTrabajador(n) {
@@ -74,15 +90,15 @@
 
     if ($("srv-finiquitos").checked) {
       const cant = Math.max(1, parseInt($("cant-finiquitos").value, 10) || 1);
-      const monto = cant * imm(CONFIG.PRECIOS.finiquitoPct);
-      lineas.push({ nombre: `Finiquitos (${cant})`, monto, tipo: "unico" });
+      const monto = cant * uf(CONFIG.PRECIOS.finiquitoUF);
+      lineas.push({ nombre: `Finiquitos (${cant} × ${CONFIG.PRECIOS.finiquitoUF} UF)`, monto, tipo: "unico" });
       unico += monto;
     }
 
     if ($("srv-liquidacion-obra").checked) {
       const cant = Math.max(1, parseInt($("cant-liquidacion").value, 10) || 1);
-      const monto = cant * imm(CONFIG.PRECIOS.liquidacionObraPct);
-      lineas.push({ nombre: `Liquidación final de obra o faena (${cant} trabajadores)`, monto, tipo: "unico" });
+      const monto = cant * uf(CONFIG.PRECIOS.liquidacionObraUF);
+      lineas.push({ nombre: `Liquidación final de obra o faena (${cant} trabajadores × ${CONFIG.PRECIOS.liquidacionObraUF} UF)`, monto, tipo: "unico" });
       unico += monto;
     }
 
@@ -106,8 +122,8 @@
 
     if ($("srv-contratos").checked) {
       const cant = Math.max(1, parseInt($("cant-contratos").value, 10) || 1);
-      const monto = cant * imm(CONFIG.PRECIOS.contratoPct);
-      lineas.push({ nombre: `Contratos de trabajo o anexos (${cant})`, monto, tipo: "unico" });
+      const monto = cant * uf(CONFIG.PRECIOS.contratoUF);
+      lineas.push({ nombre: `Contratos de trabajo o anexos (${cant} × ${CONFIG.PRECIOS.contratoUF} UF)`, monto, tipo: "unico" });
       unico += monto;
     }
 

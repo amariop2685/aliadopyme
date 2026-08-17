@@ -43,6 +43,13 @@ const CONFIG = {
      Vigente desde 01-05-2026 (Ley 21.830).                        */
   SUELDO_MINIMO: 553553,
 
+  /* ---------- UF ----------
+     Los documentos laborales se cobran en UF (mínimo 1 UF por
+     documento). La calculadora obtiene el valor de la UF del día
+     automáticamente desde mindicador.cl; este valor solo se usa
+     como respaldo si esa consulta falla.                          */
+  UF_FALLBACK: 40855, // valor al 17-08-2026
+
   /* ---------- PRECIOS (netos, referenciales) ----------
      Los campos que terminan en "Pct" son fracción del sueldo mínimo
      (0.045 = 4,5% del sueldo mínimo). El resultado se redondea a
@@ -60,10 +67,11 @@ const CONFIG = {
       ],
     },
 
-    // Valores por documento / evento (pago único, no mensual)
-    finiquitoPct: 0.045,          // por finiquito           ≈ $25.000
-    liquidacionObraPct: 0.036,    // final de obra, por trab. ≈ $20.000
-    contratoPct: 0.027,           // contrato o anexo         ≈ $15.000
+    // Documentos laborales: precio en UF por documento.
+    // Regla de negocio: el mínimo siempre es 1 UF.
+    finiquitoUF: 1,        // por finiquito
+    liquidacionObraUF: 1,  // final de obra o faena, por trabajador
+    contratoUF: 1,         // contrato de trabajo o anexo
 
     // Servicios mensuales
     conciliacionBancariaPct: 0.08,   // por cuenta bancaria   ≈ $44.500
