@@ -127,6 +127,13 @@ const CONFIG = {
      cuánto queda para AliadoPyme. Esta sección NO se muestra en las
      páginas públicas del sitio, solo en margenes.html.               */
   NEGOCIO: {
+    // Contador auditor externo (si se delega la contabilidad):
+    // AliadoPyme cobra al cliente el precio del tramo y paga al
+    // contador el resto; 0.25 = AliadoPyme se queda con el 25%.
+    // El mismo porcentaje aplica al cierre anual (mes 13), las
+    // DDJJ y las rentas de socios (1 UF c/u).
+    comisionContador: 0.25,
+
     // Abogado: él fija su honorario al cliente final y AliadoPyme
     // cobra una comisión por derivación y gestión (0.15 = 15%).
     comisionAbogado: 0.15,

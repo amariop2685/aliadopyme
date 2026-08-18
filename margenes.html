@@ -54,6 +54,24 @@
       buscadores no la indexan, pero cualquiera con el enlace exacto podría verla. No compartas
       esta URL.</div>
 
+    <!-- ===== Contador auditor ===== -->
+    <div class="bloque">
+      <h2>📊 Contador auditor — si delegas la contabilidad</h2>
+      <p>Tú cobras al cliente el precio del tramo y le pagas al contador el
+         <span id="pct-contador-prof"></span>; tu comisión es el <span id="pct-contador"></span>.
+         El mismo reparto aplica al cierre anual (mes 13), las DDJJ y las rentas de socios.</p>
+      <div style="overflow-x:auto">
+        <table class="tabla-margen">
+          <thead>
+            <tr><th>Tramo (mov. mensual)</th><th style="text-align:right">Cliente paga (neto)</th>
+                <th style="text-align:right">Contador recibe</th>
+                <th style="text-align:right">Tu comisión</th></tr>
+          </thead>
+          <tbody id="tabla-contador"></tbody>
+        </table>
+      </div>
+    </div>
+
     <!-- ===== Prevencionista ===== -->
     <div class="bloque">
       <h2>🦺 Prevencionista de riesgos — modelo reventa</h2>
@@ -149,11 +167,28 @@
   </div>
 </footer>
 
-<script src="js/config.js?v=20260817d"></script>
+<script src="js/config.js?v=20260818"></script>
 <script>
 (function () {
   const CLP = new Intl.NumberFormat("es-CL", { style: "currency", currency: "CLP", maximumFractionDigits: 0 });
   const pct = (x) => (x * 100).toFixed(0) + "%";
+
+  /* Tabla contador auditor (tramos de contabilidad × comisión) */
+  const imm = (p) => Math.round((CONFIG.SUELDO_MINIMO * p) / 500) * 500;
+  const cc = CONFIG.NEGOCIO.comisionContador;
+  document.getElementById("pct-contador").textContent = pct(cc);
+  document.getElementById("pct-contador-prof").textContent = pct(1 - cc);
+  const tc = document.getElementById("tabla-contador");
+  const etiquetas = ["Hasta $5M (10 mov.)", "$5M – $15M (25 mov.)",
+                     "$15M – $30M (50 mov.)", "$30M – $60M (80 mov.)"];
+  CONFIG.PRECIOS.contabilidadTramos.slice(0, 4).forEach((t, i) => {
+    const neto = imm(t.pct);
+    const com = Math.round(neto * cc);
+    tc.insertAdjacentHTML("beforeend",
+      `<tr><td>${etiquetas[i]}</td><td class="num">${CLP.format(neto)}/mes</td>` +
+      `<td class="num">${CLP.format(neto - com)}</td>` +
+      `<td class="num ganancia">${CLP.format(com)}/mes</td></tr>`);
+  });
 
   /* Tabla prevencionista */
   const tp = document.getElementById("tabla-prevencion");
