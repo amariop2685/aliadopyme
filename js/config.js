@@ -56,14 +56,19 @@ const CONFIG = {
      los $500 más cercanos.                                        */
   PRECIOS: {
     // Remuneraciones mensuales: cargo base + valor por trabajador
-    // según tramo (liquidaciones de sueldo, Previred, LRE).
+    // (liquidaciones de sueldo, Previred, LRE).
+    // Los tramos son MARGINALES, como una escala de impuestos: cada
+    // trabajador se cobra al valor del tramo en que cae, no todos al
+    // valor del último tramo. Así el precio siempre sube al agregar
+    // trabajadores (con tramos planos, 21 trabajadores costaban menos
+    // que 20).
     remuneraciones: {
       basePct: 0.055,             // ≈ $30.500 hoy
       tramos: [
-        { hasta: 5,        pctPorTrabajador: 0.022  }, // ≈ $12.000 c/u
-        { hasta: 20,       pctPorTrabajador: 0.018  }, // ≈ $10.000 c/u
-        { hasta: 50,       pctPorTrabajador: 0.0155 }, // ≈ $8.500 c/u
-        { hasta: Infinity, pctPorTrabajador: 0.013  }, // ≈ $7.000 c/u
+        { hasta: 5,        pctPorTrabajador: 0.022  }, // trabaj. 1 al 5   ≈ $12.000 c/u
+        { hasta: 20,       pctPorTrabajador: 0.018  }, // trabaj. 6 al 20  ≈ $10.000 c/u
+        { hasta: 50,       pctPorTrabajador: 0.0155 }, // trabaj. 21 al 50 ≈ $8.500 c/u
+        { hasta: Infinity, pctPorTrabajador: 0.013  }, // desde el 51      ≈ $7.000 c/u
       ],
     },
 

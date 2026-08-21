@@ -45,9 +45,22 @@
     return String(n).replace(".", ",");
   }
 
-  function valorPorTrabajador(n) {
-    const t = CONFIG.PRECIOS.remuneraciones.tramos.find((tr) => n <= tr.hasta);
-    return t ? imm(t.pctPorTrabajador) : 0;
+  // Costo mensual de remuneraciones: cargo base + tramos marginales.
+  // Cada trabajador se cobra al valor del tramo en que cae (los
+  // primeros 5 a un valor, del 6 al 20 a otro, etc.).
+  function costoRemuneraciones(n) {
+    const p = CONFIG.PRECIOS.remuneraciones;
+    let total = imm(p.basePct);
+    let restantes = n;
+    let desde = 0;
+    for (const t of p.tramos) {
+      if (restantes <= 0) break;
+      const enTramo = Math.min(restantes, t.hasta - desde);
+      total += enTramo * imm(t.pctPorTrabajador);
+      restantes -= enTramo;
+      desde = t.hasta;
+    }
+    return total;
   }
 
   function marcarOpcion(checkbox) {
@@ -69,8 +82,7 @@
     let unico = 0;
 
     if ($("srv-remuneraciones").checked) {
-      const p = CONFIG.PRECIOS.remuneraciones;
-      const monto = imm(p.basePct) + trabajadores * valorPorTrabajador(trabajadores);
+      const monto = costoRemuneraciones(trabajadores);
       lineas.push({ nombre: `Remuneraciones mensuales (${trabajadores} trabajadores)`, monto, tipo: "mensual" });
       mensual += monto;
     }
