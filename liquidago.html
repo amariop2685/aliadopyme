@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LiquidaGO — Liquidaciones de sueldo | AliadoPyme</title>
+  <meta name="description" content="LiquidaGO: calcula liquidaciones de sueldo en Chile con los indicadores Previred y SII vigentes. Sueldo líquido, AFP, salud, cesantía, impuesto único y costo empresa, con liquidación imprimible en PDF.">
+  <meta property="og:title" content="LiquidaGO — Liquidaciones de sueldo en minutos">
+  <meta property="og:description" content="Sueldo líquido, cotizaciones, impuesto único y costo empresa con indicadores Previred vigentes. Gratis, en tu navegador.">
+  <meta property="og:url" content="https://aliadopyme.cl/liquidago.html">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="es_CL">
+  <meta property="og:image" content="https://aliadopyme.cl/img/liquidago-og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <link rel="canonical" href="https://aliadopyme.cl/liquidago.html">
+  <link rel="icon" type="image/svg+xml" href="img/logo-icon.svg">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/apps.css?v=20260913b">
+</head>
+<body>
+
+<header>
+  <div class="contenedor nav">
+    <a class="logo" href="index.html"><img src="img/logo-icon.svg" alt="" width="34" height="34">Aliado<span>Pyme</span></a>
+    <nav class="nav-links">
+      <a href="index.html#servicios">Servicios</a>
+      <a href="conciliago.html">ConciliaGO</a>
+      <a href="index.html#calculadora" class="btn">Cotizar servicio</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<section class="app-hero">
+  <div class="contenedor">
+    <span class="badge">🧾 App AliadoPyme · gratis</span>
+    <h1>LiquidaGO: liquidaciones de sueldo en minutos</h1>
+    <p>Calcula sueldo líquido, cotizaciones, impuesto único y costo empresa con los indicadores
+       Previred y SII de <b data-periodo></b>, e imprime la liquidación lista para firmar.</p>
+  </div>
+</section>
+
+<section class="app-seccion">
+  <div class="contenedor">
+    <p class="aviso-app no-print">🔒 Todo se calcula en tu navegador: los datos de tus trabajadores no se
+      envían ni se guardan en ningún servidor. Herramienta de cálculo referencial; revisa los casos
+      especiales (licencias, pensionados, trabajos pesados) antes de pagar.</p>
+
+    <div class="app-grid">
+      <form class="panel no-print" id="form-liq" autocomplete="off">
+        <h2>Datos de la liquidación</h2>
+
+        <fieldset class="grupo">
+          <legend>Empleador y trabajador</legend>
+          <div class="campos">
+            <div class="campo-app"><label for="empresa">Razón social</label><input id="empresa" type="text"></div>
+            <div class="campo-app"><label for="rutEmpresa">RUT empresa</label><input id="rutEmpresa" type="text" placeholder="76.123.456-7"></div>
+            <div class="campo-app"><label for="trabajador">Nombre trabajador</label><input id="trabajador" type="text"></div>
+            <div class="campo-app"><label for="rutTrabajador">RUT trabajador</label><input id="rutTrabajador" type="text" placeholder="15.234.567-8"></div>
+            <div class="campo-app"><label for="cargo">Cargo</label><input id="cargo" type="text"></div>
+            <div class="campo-app"><label for="periodo">Período</label><input id="periodo" type="month"></div>
+          </div>
+        </fieldset>
+
+        <fieldset class="grupo">
+          <legend>Haberes</legend>
+          <div class="campos">
+            <div class="campo-app"><label for="sueldoBase">Sueldo base mensual</label><input id="sueldoBase" type="number" min="0" step="1" inputmode="numeric"></div>
+            <div class="campo-app"><label for="diasTrabajados">Días trabajados</label><input id="diasTrabajados" type="number" min="0" max="30" step="1"></div>
+            <div class="campo-app"><label for="jornadaSemanal">Jornada semanal (horas)</label><input id="jornadaSemanal" type="number" min="1" max="45" step="1"></div>
+            <div class="campo-app"><label for="horasExtra">Horas extra del mes</label><input id="horasExtra" type="number" min="0" step="0.5"><small>Recargo legal 50%</small></div>
+            <div class="campo-app"><label for="bonosImponibles">Bonos y comisiones imponibles</label><input id="bonosImponibles" type="number" min="0" step="1" inputmode="numeric"></div>
+            <div class="campo-app">
+              <label for="gratificacion">Gratificación</label>
+              <select id="gratificacion">
+                <option value="art50">Legal Art. 50 (25%, con tope)</option>
+                <option value="monto">Monto pactado</option>
+                <option value="ninguna">No corresponde</option>
+              </select>
+            </div>
+            <div class="campo-app" id="wrap-gratificacionMonto" hidden><label for="gratificacionMonto">Monto gratificación</label><input id="gratificacionMonto" type="number" min="0" step="1" inputmode="numeric"></div>
+            <div class="campo-app"><label for="colacion">Colación (no imponible)</label><input id="colacion" type="number" min="0" step="1" inputmode="numeric"></div>
+            <div class="campo-app"><label for="movilizacion">Movilización (no imponible)</label><input id="movilizacion" type="number" min="0" step="1" inputmode="numeric"></div>
+            <div class="campo-app"><label for="viaticos">Viáticos (no imponible)</label><input id="viaticos" type="number" min="0" step="1" inputmode="numeric"></div>
+            <div class="campo-app"><label for="cargasFamiliares">Cargas familiares</label><input id="cargasFamiliares" type="number" min="0" step="1"></div>
+          </div>
+        </fieldset>
+
+        <fieldset class="grupo">
+          <legend>Previsión y contrato</legend>
+          <div class="campos">
+            <div class="campo-app"><label for="afp">AFP</label><select id="afp"></select></div>
+            <div class="campo-app">
+              <label for="salud">Salud</label>
+              <select id="salud">
+                <option value="fonasa">Fonasa (7%)</option>
+                <option value="isapre">Isapre</option>
+              </select>
+            </div>
+            <div class="campo-app" id="wrap-planIsapreUF" hidden><label for="planIsapreUF">Plan Isapre (UF)</label><input id="planIsapreUF" type="number" min="0" step="0.001"></div>
+            <div class="campo-app"><label for="contrato">Tipo de contrato</label><select id="contrato"></select></div>
+            <div class="campo-app"><label for="apvRegimenB">APV régimen B</label><input id="apvRegimenB" type="number" min="0" step="1" inputmode="numeric"><small>Se rebaja del impuesto</small></div>
+          </div>
+        </fieldset>
+
+        <fieldset class="grupo">
+          <legend>Otros descuentos</legend>
+          <div class="campos">
+            <div class="campo-app"><label for="anticipos">Anticipos</label><input id="anticipos" type="number" min="0" step="1" inputmode="numeric"></div>
+            <div class="campo-app"><label for="prestamos">Préstamos / cuotas CCAF</label><input id="prestamos" type="number" min="0" step="1" inputmode="numeric"></div>
+            <div class="campo-app"><label for="otrosDescuentos">Otros descuentos</label><input id="otrosDescuentos" type="number" min="0" step="1" inputmode="numeric"></div>
+          </div>
+        </fieldset>
+
+        <details class="indicadores">
+          <summary>Indicadores del mes</summary>
+          <div class="campos">
+            <div class="campo-app"><label for="uf">UF</label><input id="uf" type="number" min="0" step="0.01"><small>Usa la UF del último día del mes</small></div>
+            <div class="campo-app"><label for="utm">UTM</label><input id="utm" type="number" min="0" step="1"></div>
+            <div class="campo-app"><label for="mutualTasa">Tasa mutual (%)</label><input id="mutualTasa" type="number" min="0" step="0.01" placeholder="0,93"><small>Básica 0,93% + adicional de tu actividad</small></div>
+          </div>
+          <p class="ayuda-app" id="estado-indicadores" style="margin-top:8px"></p>
+        </details>
+
+        <div class="barra-acciones">
+          <button type="button" class="btn btn-chico" id="btn-imprimir">Imprimir / guardar PDF</button>
+          <button type="button" class="btn btn-secundario btn-chico" id="btn-guardar">Guardar en nómina</button>
+          <button type="button" class="btn-texto" id="btn-ejemplo">Cargar ejemplo</button>
+          <button type="button" class="btn-texto" id="btn-limpiar">Limpiar</button>
+        </div>
+        <p class="mensaje-error" id="mensaje-form" role="status"></p>
+      </form>
+
+      <div>
+        <ul class="alertas no-print" id="alertas"></ul>
+        <article class="documento" id="liquidacion" aria-live="polite"></article>
+        <div class="panel no-print" id="panel-costo" style="margin-top:18px"></div>
+      </div>
+    </div>
+
+    <div class="panel no-print" style="margin-top:24px">
+      <h2>Nómina guardada en este navegador</h2>
+      <p class="ayuda-app">Guarda cada liquidación para armar el libro del mes y exportarlo a Excel.
+        Queda solo en este computador: si borras los datos del navegador, se pierde.</p>
+      <div class="scroll-x">
+        <table class="tabla-app">
+          <thead>
+            <tr><th>Trabajador</th><th>RUT</th><th>Período</th><th class="num">Imponible</th>
+                <th class="num">Líquido</th><th class="num">Costo empresa</th><th></th></tr>
+          </thead>
+          <tbody id="nomina-cuerpo"></tbody>
+        </table>
+      </div>
+      <div class="barra-acciones">
+        <button type="button" class="btn btn-secundario btn-chico" id="btn-exportar">Exportar libro (CSV)</button>
+      </div>
+    </div>
+
+    <div class="panel no-print" style="margin-top:24px;text-align:center">
+      <h2>¿Prefieres que lo hagamos por ti?</h2>
+      <p class="ayuda-app">En AliadoPyme llevamos tus remuneraciones completas: liquidaciones, Previred y
+        Libro de Remuneraciones Electrónico.</p>
+      <a href="index.html#calculadora" class="btn btn-chico">Calcular el valor del servicio</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="contenedor">
+    <div class="footer-final">© 2026 AliadoPyme — aliadopyme.cl · LiquidaGO usa indicadores de Previred y SII</div>
+  </div>
+</footer>
+
+<script src="js/indicadores.js?v=20260913b"></script>
+<script src="js/liquidago-motor.js?v=20260913b"></script>
+<script src="js/liquidago-app.js?v=20260913b"></script>
+<script src="js/meta-pixel.js?v=20260913b"></script>
+</body>
+</html>

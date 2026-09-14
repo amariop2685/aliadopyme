@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ConciliaGO — Conciliación bancaria | AliadoPyme</title>
+  <meta name="description" content="ConciliaGO: sube la cartola de tu banco y tu libro de banco en Excel o CSV. Empareja los movimientos, detecta partidas pendientes y arma el estado de conciliación bancaria en minutos.">
+  <meta property="og:title" content="ConciliaGO — Concilia tu banco en minutos">
+  <meta property="og:description" content="Cartola + libro de banco en Excel o CSV: movimientos emparejados, partidas pendientes y estado de conciliación. Gratis, en tu navegador.">
+  <meta property="og:url" content="https://aliadopyme.cl/conciliago.html">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="es_CL">
+  <meta property="og:image" content="https://aliadopyme.cl/img/conciliago-og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <link rel="canonical" href="https://aliadopyme.cl/conciliago.html">
+  <link rel="icon" type="image/svg+xml" href="img/logo-icon.svg">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/apps.css?v=20260913b">
+</head>
+<body>
+
+<header>
+  <div class="contenedor nav">
+    <a class="logo" href="index.html"><img src="img/logo-icon.svg" alt="" width="34" height="34">Aliado<span>Pyme</span></a>
+    <nav class="nav-links">
+      <a href="index.html#servicios">Servicios</a>
+      <a href="liquidago.html">LiquidaGO</a>
+      <a href="index.html#calculadora" class="btn">Cotizar servicio</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<section class="app-hero">
+  <div class="contenedor">
+    <span class="badge">🏦 App AliadoPyme · gratis</span>
+    <h1>ConciliaGO: concilia tu banco en minutos</h1>
+    <p>Sube la cartola de tu banco y tu libro de banco en Excel o CSV. ConciliaGO empareja los
+       movimientos, detecta lo que falta registrar y arma el estado de conciliación.</p>
+  </div>
+</section>
+
+<section class="app-seccion">
+  <div class="contenedor">
+    <p class="aviso-app no-print">🔒 Los archivos se leen en tu navegador y nunca se suben a internet.
+      Revisa siempre las partidas pendientes antes de ajustar tu contabilidad.</p>
+
+    <div class="cargas-grid no-print">
+      <div class="panel">
+        <h2>1 · Cartola bancaria</h2>
+        <p class="ayuda-app">Descárgala desde el sitio de tu banco en Excel o CSV.</p>
+        <div class="carga"><input type="file" id="archivo-banco" accept=".csv,.txt,.xls,.xlsx" aria-label="Archivo de cartola bancaria"></div>
+        <div id="mapa-banco"></div>
+      </div>
+      <div class="panel">
+        <h2>2 · Libro de banco</h2>
+        <p class="ayuda-app">El mayor de la cuenta banco exportado desde tu contabilidad, en Excel o CSV.</p>
+        <div class="carga"><input type="file" id="archivo-libro" accept=".csv,.txt,.xls,.xlsx" aria-label="Archivo del libro de banco"></div>
+        <div id="mapa-libro"></div>
+      </div>
+    </div>
+
+    <div class="panel no-print" style="margin-top:20px">
+      <h2>3 · Conciliar</h2>
+      <div class="campos">
+        <div class="campo-app">
+          <label for="tolerancia">Tolerancia de fechas (días)</label>
+          <input id="tolerancia" type="number" min="0" max="31" step="1" value="3">
+          <small>Diferencia máxima entre la fecha del banco y la del libro</small>
+        </div>
+        <div class="campo-app">
+          <label for="saldo-banco">Saldo final según cartola</label>
+          <input id="saldo-banco" type="text" inputmode="numeric" placeholder="1.587.050">
+        </div>
+        <div class="campo-app">
+          <label for="saldo-libro">Saldo final según libro</label>
+          <input id="saldo-libro" type="text" inputmode="numeric" placeholder="1.673.800">
+        </div>
+      </div>
+      <div class="barra-acciones">
+        <button type="button" class="btn btn-chico" id="btn-conciliar">Conciliar</button>
+        <button type="button" class="btn-texto" id="btn-ejemplo">Probar con datos de ejemplo</button>
+      </div>
+      <p class="mensaje-error" id="mensaje" role="status"></p>
+    </div>
+
+    <div class="panel" id="resultado" style="margin-top:20px" hidden>
+      <div class="doc-encabezado">
+        <div class="doc-empresa">Conciliación bancaria<span id="res-subtitulo"></span></div>
+        <div class="barra-acciones no-print" style="margin-top:0">
+          <button type="button" class="btn btn-secundario btn-chico" id="btn-exportar">Exportar a Excel (CSV)</button>
+          <button type="button" class="btn-texto" id="btn-imprimir">Imprimir</button>
+        </div>
+      </div>
+      <div class="kpis" id="kpis"></div>
+      <div id="estado"></div>
+      <div class="pestanas no-print" role="tablist" id="pestanas"></div>
+      <div class="scroll-x" id="tabla-detalle"></div>
+      <p class="doc-marca">Generada con ConciliaGO · aliadopyme.cl</p>
+    </div>
+
+    <div class="panel no-print" style="margin-top:24px;text-align:center">
+      <h2>¿Prefieres que lo hagamos por ti?</h2>
+      <p class="ayuda-app">En AliadoPyme conciliamos tus cuentas bancarias cada mes y te entregamos
+        el informe de diferencias.</p>
+      <a href="index.html#calculadora" class="btn btn-chico">Calcular el valor del servicio</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="contenedor">
+    <div class="footer-final">© 2026 AliadoPyme — aliadopyme.cl · ConciliaGO</div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script src="js/conciliago-motor.js?v=20260913b"></script>
+<script src="js/conciliago-app.js?v=20260913b"></script>
+<script src="js/meta-pixel.js?v=20260913b"></script>
+</body>
+</html>

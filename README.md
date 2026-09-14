@@ -12,6 +12,10 @@ con el dominio administrado en **Cloudflare**.
 | `legal.html` | Landing de **asesoría legal laboral** (contratos a medida, Ley Karin) con calendario del abogado |
 | `prevencion.html` | Landing de **prevención de riesgos** (capacitaciones Ley Karin, DS 44) con calendario del prevencionista |
 | `tecnologia.html` | Landing de **consultoría tecnológica** (Microsoft 365, Azure, software a medida, web, CRM) con calendario propio |
+| `liquidago.html` | **App LiquidaGO**: liquidaciones de sueldo, costo empresa y libro exportable. Motor en `js/liquidago-motor.js` |
+| `conciliago.html` | **App ConciliaGO**: conciliación bancaria desde cartola y libro en Excel/CSV. Motor en `js/conciliago-motor.js` |
+| `js/indicadores.js` | **Actualizar cada mes**: indicadores Previred y tabla del impuesto único que usa LiquidaGO |
+| `tests/` | Pruebas de los motores: `node tests/liquidago.test.js` y `node tests/conciliago.test.js` |
 | `margenes.html` | **Uso interno** (no enlazada, noindex): tabla de márgenes y comisiones + simuladores |
 | `js/config.js` | **Único archivo que necesitas editar**: precios, WhatsApp, correo y enlaces de agenda |
 | `js/calculadora.js` | Lógica de la calculadora (no requiere edición) |

@@ -1,0 +1,194 @@
+/* ============ Apps AliadoPyme: LiquidaGO y ConciliaGO ============ */
+[hidden] { display: none !important; }
+
+.app-hero {
+  background: linear-gradient(135deg, var(--azul) 0%, #0e5a82 60%, var(--acento-oscuro) 100%);
+  color: var(--blanco);
+  padding: 44px 0 38px;
+}
+.app-hero h1 { font-size: clamp(1.6rem, 3.5vw, 2.3rem); letter-spacing: -0.5px; margin: 10px 0 8px; line-height: 1.2; }
+.app-hero p { opacity: 0.92; max-width: 760px; }
+
+.app-seccion { padding: 30px 0 60px; }
+.app-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); gap: 24px; align-items: start; }
+.cargas-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+@media (max-width: 960px) {
+  .app-grid, .cargas-grid { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 420px) {
+  .nav-links .btn { padding: 9px 13px; font-size: 0.86rem; }
+}
+
+/* ?demo=captura: solo el resultado, para generar imágenes de marketing */
+.modo-captura header, .modo-captura footer, .modo-captura .app-hero,
+.modo-captura #form-liq,
+.modo-captura .app-seccion .contenedor > :not(#resultado):not(.app-grid) { display: none !important; }
+.modo-captura .app-seccion { padding: 28px 0; }
+.modo-captura .app-grid { grid-template-columns: minmax(0, 1fr); max-width: 760px; margin: 0 auto; }
+
+.panel {
+  background: var(--blanco);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  padding: 22px;
+  box-shadow: var(--sombra);
+}
+.panel h2 { font-size: 1.1rem; color: var(--azul); margin-bottom: 10px; }
+.ayuda-app { color: var(--texto-suave); font-size: 0.88rem; margin-bottom: 12px; }
+
+fieldset.grupo { border: 0; border-top: 1px solid var(--borde); padding: 14px 0 6px; margin: 0; min-width: 0; }
+fieldset.grupo:first-of-type { border-top: 0; padding-top: 0; }
+fieldset.grupo legend { font-weight: 700; color: var(--acento-oscuro); font-size: 0.95rem; padding: 0; margin-bottom: 10px; float: left; width: 100%; }
+fieldset.grupo legend + * { clear: both; }
+
+.campos { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 14px; }
+@media (max-width: 520px) { .campos { grid-template-columns: 1fr; } }
+
+.campo-app label { display: block; font-size: 0.82rem; font-weight: 600; color: var(--texto); margin-bottom: 4px; }
+.campo-app input, .campo-app select {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1.5px solid var(--borde);
+  border-radius: 8px;
+  font: inherit;
+  font-size: 0.95rem;
+  background: var(--blanco);
+  color: var(--texto);
+}
+.campo-app input:focus, .campo-app select:focus { outline: none; border-color: var(--acento); }
+.campo-app small { display: block; color: var(--texto-suave); font-size: 0.75rem; margin-top: 3px; }
+
+details.indicadores { margin-top: 10px; }
+details.indicadores summary { cursor: pointer; font-weight: 700; color: var(--acento-oscuro); font-size: 0.95rem; }
+details.indicadores .campos { margin-top: 10px; }
+
+.barra-acciones { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
+.btn-chico { padding: 9px 16px; font-size: 0.9rem; }
+.btn-texto { background: none; border: 0; color: var(--acento-oscuro); font: inherit; font-weight: 600; cursor: pointer; padding: 4px 6px; }
+.btn-texto:hover { text-decoration: underline; }
+
+.aviso-app {
+  background: #eef7f7;
+  border: 1px solid #bfe3e2;
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-size: 0.87rem;
+  color: #23524f;
+  margin-bottom: 20px;
+}
+.mensaje-error { color: #b42318; font-size: 0.9rem; margin-top: 10px; }
+
+.alertas { margin: 0 0 14px; padding: 0; list-style: none; }
+.alertas li {
+  background: #fff4e5;
+  border: 1px solid #f3c98b;
+  color: #7a4a00;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 0.85rem;
+  margin-bottom: 6px;
+}
+
+/* ---------- Documento de liquidación ---------- */
+.documento {
+  background: var(--blanco);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  padding: 26px;
+  box-shadow: var(--sombra);
+  font-size: 0.9rem;
+}
+.doc-encabezado {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 12px;
+  flex-wrap: wrap;
+  border-bottom: 2px solid var(--azul);
+  padding-bottom: 10px;
+  margin-bottom: 14px;
+}
+.doc-empresa { font-size: 1.1rem; font-weight: 700; color: var(--azul); }
+.doc-empresa span { display: block; font-size: 0.82rem; font-weight: 400; color: var(--texto-suave); }
+.doc-titulo { text-align: right; }
+.doc-titulo h2 { color: var(--azul); font-size: 1.1rem; }
+.doc-titulo span { color: var(--texto-suave); font-size: 0.85rem; }
+.doc-partes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px 20px; margin-bottom: 14px; font-size: 0.85rem; }
+@media (max-width: 520px) { .doc-partes { grid-template-columns: 1fr; } }
+.doc-partes b { color: var(--azul); font-weight: 600; }
+
+.tabla-doc { width: 100%; border-collapse: collapse; margin-bottom: 10px; }
+.tabla-doc th {
+  text-align: left;
+  background: var(--fondo);
+  color: var(--azul);
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 6px 8px;
+}
+.tabla-doc td { padding: 5px 8px; border-bottom: 1px solid #eef2f6; }
+.tabla-doc .num { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.tabla-doc tr.subtotal td { font-weight: 700; border-bottom: 1.5px solid var(--borde); }
+.tabla-doc tr.detalle td { color: var(--texto-suave); font-size: 0.8rem; padding-left: 20px; }
+
+.liquido {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  background: var(--azul);
+  color: var(--blanco);
+  border-radius: 10px;
+  padding: 12px 16px;
+  margin: 12px 0;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+.doc-pie { color: var(--texto-suave); font-size: 0.75rem; margin-top: 8px; }
+.firmas { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 44px; text-align: center; font-size: 0.8rem; color: var(--texto-suave); }
+.firmas div { border-top: 1px solid var(--texto-suave); padding-top: 6px; }
+.doc-marca { text-align: right; font-size: 0.7rem; color: var(--texto-suave); margin-top: 14px; }
+
+/* ---------- Tablas y resultados ---------- */
+.scroll-x { overflow-x: auto; }
+.tabla-app { width: 100%; border-collapse: collapse; font-size: 0.87rem; }
+.tabla-app th { text-align: left; background: var(--azul); color: var(--blanco); padding: 8px 10px; font-size: 0.8rem; white-space: nowrap; }
+.tabla-app td { padding: 7px 10px; border-bottom: 1px solid var(--borde); vertical-align: top; }
+.tabla-app .num { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.tabla-app tr.total td { font-weight: 700; background: var(--fondo); }
+.positivo { color: var(--exito); }
+.negativo { color: #b42318; }
+.vacio { color: var(--texto-suave); text-align: center; padding: 18px; }
+
+.kpis { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-bottom: 18px; }
+@media (max-width: 720px) { .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.kpi { background: var(--fondo); border: 1px solid var(--borde); border-radius: 10px; padding: 12px 14px; }
+.kpi span { display: block; font-size: 0.78rem; color: var(--texto-suave); }
+.kpi strong { font-size: 1.3rem; color: var(--azul); font-variant-numeric: tabular-nums; }
+
+.pestanas { display: flex; flex-wrap: wrap; gap: 6px; margin: 20px 0 10px; }
+.pestana {
+  border: 1.5px solid var(--borde);
+  background: var(--blanco);
+  color: var(--texto);
+  padding: 7px 14px;
+  border-radius: 999px;
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+.pestana[aria-selected="true"] { background: var(--acento-oscuro); border-color: var(--acento-oscuro); color: var(--blanco); }
+
+.carga { border: 2px dashed var(--borde); border-radius: 10px; padding: 16px; text-align: center; margin-bottom: 12px; }
+.carga input[type="file"] { max-width: 100%; font: inherit; font-size: 0.88rem; }
+
+@media print {
+  header, footer, .no-print, .app-hero { display: none !important; }
+  body { background: #fff; }
+  .app-seccion { padding: 0; }
+  .app-grid { display: block; }
+  .documento, .panel { box-shadow: none; border: 0; padding: 0; }
+  .liquido, .tabla-app th, .kpi { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
