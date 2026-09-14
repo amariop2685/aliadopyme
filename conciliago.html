@@ -6,7 +6,7 @@
   <title>ConciliaGO — Conciliación bancaria | AliadoPyme</title>
   <meta name="description" content="ConciliaGO: sube la cartola de tu banco y tu libro de banco en Excel o CSV. Empareja los movimientos, detecta partidas pendientes y arma el estado de conciliación bancaria en minutos.">
   <meta property="og:title" content="ConciliaGO — Concilia tu banco en minutos">
-  <meta property="og:description" content="Cartola + libro de banco en Excel o CSV: movimientos emparejados, partidas pendientes y estado de conciliación. Gratis, en tu navegador.">
+  <meta property="og:description" content="Demo gratuita: cartola + libro de banco en Excel o CSV, movimientos emparejados y estado de conciliación. Uso referencial, en tu navegador.">
   <meta property="og:url" content="https://aliadopyme.cl/conciliago.html">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="es_CL">
@@ -16,7 +16,7 @@
   <link rel="canonical" href="https://aliadopyme.cl/conciliago.html">
   <link rel="icon" type="image/svg+xml" href="img/logo-icon.svg">
   <link rel="stylesheet" href="css/styles.css">
-  <link rel="stylesheet" href="css/apps.css?v=20260913b">
+  <link rel="stylesheet" href="css/apps.css?v=20260914">
 </head>
 <body>
 
@@ -35,17 +35,22 @@
 
 <section class="app-hero">
   <div class="contenedor">
-    <span class="badge">🏦 App AliadoPyme · gratis</span>
+    <span class="badge">🏦 Demo gratuita · AliadoPyme</span>
     <h1>ConciliaGO: concilia tu banco en minutos</h1>
-    <p>Sube la cartola de tu banco y tu libro de banco en Excel o CSV. ConciliaGO empareja los
-       movimientos, detecta lo que falta registrar y arma el estado de conciliación.</p>
+    <p>Prueba cómo conciliar tu cartola y tu libro de banco en Excel o CSV: ConciliaGO empareja los
+       movimientos, detecta lo que falta registrar y arma el estado de conciliación. Versión demo de uso referencial.</p>
   </div>
 </section>
 
 <section class="app-seccion">
   <div class="contenedor">
-    <p class="aviso-app no-print">🔒 Los archivos se leen en tu navegador y nunca se suben a internet.
-      Revisa siempre las partidas pendientes antes de ajustar tu contabilidad.</p>
+    <div class="aviso-demo" role="note">
+      <b>⚠️ Versión demo, solo de prueba.</b> Los resultados son referenciales, pueden contener errores y
+      no reemplazan la revisión de un profesional ni constituyen asesoría contable o tributaria.
+      AliadoPyme no se responsabiliza por los datos ingresados ni por ajustes contables, pagos o
+      declaraciones que se realicen en base a esta herramienta.
+      <span class="aviso-demo-privacidad">🔒 Los archivos se leen solo en tu navegador y nunca se suben a internet.</span>
+    </div>
 
     <div class="cargas-grid no-print">
       <div class="panel">
@@ -86,7 +91,7 @@
       <p class="mensaje-error" id="mensaje" role="status"></p>
     </div>
 
-    <div class="panel" id="resultado" style="margin-top:20px" hidden>
+    <div class="panel marca-demo" id="resultado" style="margin-top:20px" hidden>
       <div class="doc-encabezado">
         <div class="doc-empresa">Conciliación bancaria<span id="res-subtitulo"></span></div>
         <div class="barra-acciones no-print" style="margin-top:0">
@@ -98,7 +103,7 @@
       <div id="estado"></div>
       <div class="pestanas no-print" role="tablist" id="pestanas"></div>
       <div class="scroll-x" id="tabla-detalle"></div>
-      <p class="doc-marca">Generada con ConciliaGO · aliadopyme.cl</p>
+      <p class="doc-marca">Documento de demostración generado con ConciliaGO · solo referencial, sin validez legal · aliadopyme.cl</p>
     </div>
 
     <div class="panel no-print" style="margin-top:24px;text-align:center">
@@ -119,8 +124,8 @@
 </footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
-<script src="js/conciliago-motor.js?v=20260913b"></script>
-<script src="js/conciliago-app.js?v=20260913b"></script>
-<script src="js/meta-pixel.js?v=20260913b"></script>
+<script src="js/conciliago-motor.js?v=20260914"></script>
+<script src="js/conciliago-app.js?v=20260914"></script>
+<script src="js/meta-pixel.js?v=20260914"></script>
 </body>
 </html>

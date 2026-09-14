@@ -6,7 +6,7 @@
   <title>LiquidaGO — Liquidaciones de sueldo | AliadoPyme</title>
   <meta name="description" content="LiquidaGO: calcula liquidaciones de sueldo en Chile con los indicadores Previred y SII vigentes. Sueldo líquido, AFP, salud, cesantía, impuesto único y costo empresa, con liquidación imprimible en PDF.">
   <meta property="og:title" content="LiquidaGO — Liquidaciones de sueldo en minutos">
-  <meta property="og:description" content="Sueldo líquido, cotizaciones, impuesto único y costo empresa con indicadores Previred vigentes. Gratis, en tu navegador.">
+  <meta property="og:description" content="Demo gratuita: sueldo líquido, cotizaciones, impuesto único y costo empresa con indicadores Previred vigentes. Uso referencial, en tu navegador.">
   <meta property="og:url" content="https://aliadopyme.cl/liquidago.html">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="es_CL">
@@ -16,7 +16,7 @@
   <link rel="canonical" href="https://aliadopyme.cl/liquidago.html">
   <link rel="icon" type="image/svg+xml" href="img/logo-icon.svg">
   <link rel="stylesheet" href="css/styles.css">
-  <link rel="stylesheet" href="css/apps.css?v=20260913b">
+  <link rel="stylesheet" href="css/apps.css?v=20260914">
 </head>
 <body>
 
@@ -35,18 +35,23 @@
 
 <section class="app-hero">
   <div class="contenedor">
-    <span class="badge">🧾 App AliadoPyme · gratis</span>
+    <span class="badge">🧾 Demo gratuita · AliadoPyme</span>
     <h1>LiquidaGO: liquidaciones de sueldo en minutos</h1>
-    <p>Calcula sueldo líquido, cotizaciones, impuesto único y costo empresa con los indicadores
-       Previred y SII de <b data-periodo></b>, e imprime la liquidación lista para firmar.</p>
+    <p>Prueba cómo calcular sueldo líquido, cotizaciones, impuesto único y costo empresa con los
+       indicadores Previred y SII de <b data-periodo></b>. Versión demo de uso referencial.</p>
   </div>
 </section>
 
 <section class="app-seccion">
   <div class="contenedor">
-    <p class="aviso-app no-print">🔒 Todo se calcula en tu navegador: los datos de tus trabajadores no se
-      envían ni se guardan en ningún servidor. Herramienta de cálculo referencial; revisa los casos
-      especiales (licencias, pensionados, trabajos pesados) antes de pagar.</p>
+    <div class="aviso-demo" role="note">
+      <b>⚠️ Versión demo, solo de prueba.</b> Los resultados son referenciales, pueden contener errores y
+      no reemplazan la revisión de un profesional ni constituyen asesoría laboral, previsional o tributaria.
+      AliadoPyme no se responsabiliza por los datos ingresados ni por pagos, liquidaciones o declaraciones
+      que se realicen en base a esta herramienta.
+      <span class="aviso-demo-privacidad">🔒 Los datos se procesan solo en tu navegador y no se envían a
+        ningún servidor. No incluye casos especiales como licencias médicas, pensionados o trabajos pesados.</span>
+    </div>
 
     <div class="app-grid">
       <form class="panel no-print" id="form-liq" autocomplete="off">
@@ -135,7 +140,7 @@
 
       <div>
         <ul class="alertas no-print" id="alertas"></ul>
-        <article class="documento" id="liquidacion" aria-live="polite"></article>
+        <article class="documento marca-demo" id="liquidacion" aria-live="polite"></article>
         <div class="panel no-print" id="panel-costo" style="margin-top:18px"></div>
       </div>
     </div>
@@ -175,9 +180,9 @@
   </div>
 </footer>
 
-<script src="js/indicadores.js?v=20260913b"></script>
-<script src="js/liquidago-motor.js?v=20260913b"></script>
-<script src="js/liquidago-app.js?v=20260913b"></script>
-<script src="js/meta-pixel.js?v=20260913b"></script>
+<script src="js/indicadores.js?v=20260914"></script>
+<script src="js/liquidago-motor.js?v=20260914"></script>
+<script src="js/liquidago-app.js?v=20260914"></script>
+<script src="js/meta-pixel.js?v=20260914"></script>
 </body>
 </html>

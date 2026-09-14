@@ -174,7 +174,7 @@
       <p class="doc-pie">Base tributable ${pesos(l.baseTributable)} · Tope imponible ${ind.topes.afpUF} UF
         (${pesos(l.topeAfp)}) · UF ${numero(ind.uf, 2)} · UTM ${pesos(ind.utm)}</p>
       <div class="firmas"><div>Firma empleador</div><div>Recibí conforme · firma trabajador</div></div>
-      <p class="doc-marca">Generada con LiquidaGO · aliadopyme.cl</p>`;
+      <p class="doc-marca">Documento de demostración generado con LiquidaGO · solo referencial, sin validez legal · aliadopyme.cl</p>`;
 
     const ae = l.aportesEmpleador;
     const ss = ind.seguroSocialEmpleador;
