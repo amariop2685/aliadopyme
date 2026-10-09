@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Conciliación bancaria de depósitos y caja — demo para contadores y tesorería | AliadoPyme</title>
+  <meta name="description" content="Demo interactiva para contadores, asistentes contables y personal de tesorería: cuadra los depósitos de la cartola con los tickets de caja, emite el memo para la boleta o factura y recibe el número de documento desde el ERP. Sin planillas paralelas.">
+  <meta property="og:title" content="Cuadra depósitos, caja y boletas sin planillas paralelas">
+  <meta property="og:description" content="Demo interactiva de conciliación bancaria para contadores y tesorería: tickets → memo → caja → ERP, trabajando sobre la cartola del banco.">
+  <meta property="og:url" content="https://aliadopyme.cl/conciliacion-bancaria.html">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="es_CL">
+  <meta property="og:image" content="https://aliadopyme.cl/img/conciliago-og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <link rel="canonical" href="https://aliadopyme.cl/conciliacion-bancaria.html">
+  <link rel="icon" type="image/svg+xml" href="img/logo-icon.svg">
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    /* ---------- marco de la demo ---------- */
+    .demo-marco {
+      background: #0b3d5c;
+      border-radius: var(--radio);
+      padding: 14px;
+      box-shadow: 0 18px 50px rgba(11, 61, 92, 0.28);
+    }
+    .demo-barra {
+      display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+      padding: 0 4px 12px; color: #cfe6f1; font-size: 0.82rem;
+    }
+    .demo-barra .punto { color: #ffd4a3; font-weight: 700; }
+    .demo-barra .sp { flex: 1; }
+    .demo-barra a { color: #fff; font-weight: 600; }
+    .demo-ventana {
+      position: relative; border-radius: 10px; overflow: hidden;
+      background: #d6dae3; height: 680px;
+    }
+    .demo-ventana iframe { width: 100%; height: 100%; border: 0; display: block; }
+    .demo-solo-movil { display: none; }
+    .demo-pie { color: #a9c9d8; font-size: 0.78rem; padding: 12px 4px 0; line-height: 1.5; }
+
+    @media (max-width: 900px) {
+      .demo-ventana { display: none; }
+      .demo-solo-movil {
+        display: block; background: var(--blanco); border-radius: 10px;
+        padding: 22px; text-align: center;
+      }
+      .demo-solo-movil img { width: 56px; height: 56px; margin-bottom: 10px; }
+      .demo-solo-movil h3 { color: var(--azul); font-size: 1.05rem; margin-bottom: 8px; }
+      .demo-solo-movil p { color: var(--texto-suave); font-size: 0.9rem; margin-bottom: 16px; }
+    }
+
+    /* ---------- bloques de apoyo ---------- */
+    .dolor-lista { list-style: none; display: grid; gap: 10px; max-width: 760px; margin: 0 auto; }
+    .dolor-lista li {
+      background: var(--blanco); border: 1px solid var(--borde); border-left: 4px solid #d97706;
+      border-radius: 10px; padding: 13px 16px; font-size: 0.95rem; color: var(--texto);
+    }
+    .seccion-alt .dolor-lista li { background: var(--fondo); }
+
+    .beneficios { list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; }
+    .beneficios li {
+      background: var(--blanco); border: 1px solid var(--borde); border-radius: 10px;
+      padding: 14px 16px; font-size: 0.92rem; color: var(--texto); line-height: 1.5;
+    }
+    .beneficios li b { color: var(--azul); display: block; margin-bottom: 3px; }
+
+    .aviso-legal {
+      background: #fffaf0; border: 1px solid #f0d9ae; border-radius: var(--radio);
+      padding: 16px 18px; font-size: 0.86rem; color: #7a5d33; line-height: 1.6;
+      max-width: 860px; margin: 0 auto;
+    }
+    .cierre { text-align: center; }
+    .cierre .acciones { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-top: 22px; }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="contenedor nav">
+    <a class="logo" href="index.html"><img src="img/logo-icon.svg" alt="" width="34" height="34">Aliado<span>Pyme</span></a>
+    <nav class="nav-links">
+      <a href="index.html#servicios">Servicios</a>
+      <a href="conciliago.html">ConciliaGO</a>
+      <a href="liquidago.html">LiquidaGO</a>
+      <a href="index.html#calculadora" class="btn">Cotizar servicio</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<!-- ================= HERO ================= -->
+<section class="hero">
+  <div class="contenedor">
+    <span class="badge">🏦 Demo interactiva · para contadores y tesorería</span>
+    <h1>Cuadra los depósitos del banco con la caja, sin planillas paralelas</h1>
+    <p>Si tu día se va cruzando la cartola con los tickets de caja, persiguiendo qué boleta o
+       factura corresponde a cada depósito y anotándolo en un Excel aparte, prueba esta demo:
+       el trabajo queda <b>sobre la misma cartola del banco</b>, visible para todo el equipo.</p>
+    <div class="acciones">
+      <a href="#demo" class="btn">Probar la demo ahora</a>
+      <a href="index.html#calculadora" class="btn btn-secundario">Cotizar el servicio</a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= EL PROBLEMA ================= -->
+<section class="seccion-alt">
+  <div class="contenedor">
+    <h2 class="titulo-seccion">El problema de todos los meses</h2>
+    <p class="subtitulo-seccion">Esto es lo que nos cuentan los contadores y los equipos de
+       tesorería con los que trabajamos.</p>
+    <ul class="dolor-lista">
+      <li>Llegan los tickets de caja en papel y hay que sumarlos a mano para ver si calzan con el abono del banco.</li>
+      <li>Un depósito junta dos o tres ventas, así que un abono no corresponde a un solo documento.</li>
+      <li>Aparece una diferencia de $20 y nadie sabe si fue un error de digitación o un vuelto mal dado.</li>
+      <li>El número de boleta o factura no existe todavía: caja lo emite después, y hay que volver a buscarlo.</li>
+      <li>Si es factura, el RUT queda en un papel y se descubre tarde que no coincide con el documento emitido.</li>
+      <li>El avance vive en el Excel de una sola persona: si falta, nadie sabe qué quedó conciliado.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ================= DEMO ================= -->
+<section id="demo">
+  <div class="contenedor">
+    <h2 class="titulo-seccion">Pruébalo tú mismo</h2>
+    <p class="subtitulo-seccion">Esta es una demostración completa y funcional: trabaja sobre tres
+       portales bancarios simulados, con una capa de conciliación encima. Puedes hacer clic en todo.</p>
+
+    <div class="demo-marco">
+      <div class="demo-barra">
+        <span class="punto">● Demo con bancos y datos ficticios</span>
+        <span class="sp"></span>
+        <a href="conciliago-extension.html" target="_blank" rel="noopener">Abrir a pantalla completa ↗</a>
+      </div>
+
+      <div class="demo-ventana">
+        <iframe src="conciliago-extension.html" title="Demo interactiva de conciliación de depósitos y caja"
+                loading="lazy"></iframe>
+      </div>
+
+      <div class="demo-solo-movil">
+        <img src="img/logo-icon.svg" alt="">
+        <h3>La demo necesita pantalla de computador</h3>
+        <p>Simula tres portales bancarios con la cartola completa, así que se ve bien en un notebook
+           o PC. Ábrela cuando estés en la oficina.</p>
+        <a href="conciliago-extension.html" class="btn">Abrir la demo igualmente</a>
+      </div>
+
+      <p class="demo-pie">
+        <b>Cómo recorrerla:</b> pulsa <b>🎟️ Tickets</b> sobre cualquier abono verde, usa
+        <b>✨ Autocompletar</b> para cargar los tickets de ese depósito, verifica, emite el memo y
+        luego pulsa <b>Sincronizar con el ERP</b>. Prueba también el abono de $45.500 (tiene una
+        diferencia mínima de $20), el de $197.460 (caja aún no emite la factura) y el de $45.000
+        (ticket inexistente). Cambia de pestaña entre los tres bancos y mira cómo el equipo trabaja
+        en paralelo. Doble clic sobre un timbre lo devuelve a pendiente.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CÓMO FUNCIONA ================= -->
+<section class="seccion-alt">
+  <div class="contenedor">
+    <h2 class="titulo-seccion">Cuatro pasos y el depósito queda cerrado</h2>
+    <p class="subtitulo-seccion">El mismo circuito que ya usas, pero registrado en un solo lugar
+       y sin volver a transcribir nada.</p>
+    <div class="pasos-proceso">
+      <div class="paso-item">
+        <span class="numero">1</span>
+        <h3 class="paso-titulo">Verificar contra el banco</h3>
+        <p>Ingresas los tickets de caja del depósito y se suman contra el abono de la cartola.
+           Si calza, queda verificado; si hay una diferencia mínima, se acepta y queda registrada
+           en lugar de desaparecer.</p>
+      </div>
+      <div class="paso-item">
+        <span class="numero">2</span>
+        <h3 class="paso-titulo">Emitir el memo para caja</h3>
+        <p>Se genera el memo con fecha, banco, monto, tickets, tipo de documento y RUT validado,
+           con sello y firma del responsable, para que en caja emitan la boleta o la factura.</p>
+      </div>
+      <div class="paso-item">
+        <span class="numero">3</span>
+        <h3 class="paso-titulo">Caja emite el documento</h3>
+        <p>Mientras el documento no exista, el depósito queda marcado como “esperando boleta”.
+           Nadie tiene que acordarse de volver a revisarlo.</p>
+      </div>
+      <div class="paso-item">
+        <span class="numero">4</span>
+        <h3 class="paso-titulo">El ERP devuelve el número</h3>
+        <p>Al sincronizar, el número de boleta o factura y su fecha de pago se estampan sobre la
+           fila del banco. Si el RUT no coincide con la factura emitida, se avisa en el momento.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PARA QUIÉN ES ================= -->
+<section>
+  <div class="contenedor">
+    <h2 class="titulo-seccion">¿Es para ti?</h2>
+    <p class="subtitulo-seccion">Pensado para quienes cierran el mes con la cartola abierta en una
+       pestaña y el Excel en la otra.</p>
+    <div class="grid-servicios">
+      <div class="tarjeta">
+        <span class="icono">📊</span>
+        <h3>Contador o contadora externa</h3>
+        <p>Llevas varias empresas y cada una te entrega los respaldos a su manera.</p>
+        <ul>
+          <li>Ves el estado de cada depósito sin pedir el Excel actualizado</li>
+          <li>Las diferencias quedan documentadas, no “cuadradas a la fuerza”</li>
+          <li>Exportas el detalle conciliado a Excel para tu papel de trabajo</li>
+        </ul>
+      </div>
+      <div class="tarjeta">
+        <span class="icono">🧾</span>
+        <h3>Asistente contable</h3>
+        <p>Eres quien realmente cruza tickets, abonos y documentos todos los días.</p>
+        <ul>
+          <li>Suma automática de los tickets contra el abono del banco</li>
+          <li>RUT validado antes de que caja emita la factura</li>
+          <li>Un abono puede cerrar con varios tickets y varios documentos</li>
+        </ul>
+      </div>
+      <div class="tarjeta">
+        <span class="icono">🏦</span>
+        <h3>Tesorería y caja</h3>
+        <p>Recibes depósitos de sucursales, transferencias y liquidaciones de tarjetas.</p>
+        <ul>
+          <li>Memo impreso con sello y firma para respaldar lo que entra a caja</li>
+          <li>Trabajo visible para todo el equipo, sin pisarse entre dos personas</li>
+          <li>Varios bancos abiertos a la vez, cada uno en su pestaña</li>
+        </ul>
+      </div>
+      <div class="tarjeta">
+        <span class="icono">📋</span>
+        <h3>Jefatura administrativa</h3>
+        <p>Necesitas saber en qué va el cierre sin preguntar uno por uno.</p>
+        <ul>
+          <li>Tablero con lo verificado, lo que está en caja y lo conciliado</li>
+          <li>Registro de quién concilió cada depósito y cuándo</li>
+          <li>El avance no se pierde si alguien falta o cambia de equipo</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= QUÉ RESUELVE ================= -->
+<section class="seccion-alt">
+  <div class="contenedor">
+    <h2 class="titulo-seccion">Lo que cambia en el día a día</h2>
+    <ul class="beneficios">
+      <li><b>Un solo lugar de la verdad</b>El estado de cada depósito queda en una base de datos
+        compartida, no en la planilla de una persona.</li>
+      <li><b>Diferencias con tolerancia</b>Las diferencias mínimas se aceptan, se registran y quedan
+        en el memo, en vez de obligar a forzar el cuadre.</li>
+      <li><b>RUT validado antes de facturar</b>El dígito verificador se comprueba al ingresarlo y se
+        compara con la factura que finalmente se emitió.</li>
+      <li><b>Sin dobles digitaciones</b>El número de documento llega desde el sistema que lo emitió,
+        nadie lo copia a mano.</li>
+      <li><b>Varias personas a la vez</b>Cuando alguien está trabajando un abono, los demás lo ven
+        tomado y no lo duplican.</li>
+      <li><b>Respaldo para la auditoría</b>Cada depósito cierra con su memo, sus tickets, su
+        documento tributario y el nombre de quien lo concilió.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ================= AVISO ================= -->
+<section style="padding-top:0">
+  <div class="contenedor">
+    <div class="aviso-legal" role="note">
+      <b>⚠️ Sobre esta demostración.</b> Es una <b>versión demo, solo de prueba</b>, hecha para mostrar
+      cómo funciona el flujo de trabajo. Los tres bancos, las cuentas, los saldos, los nombres, los RUT
+      y los documentos son <b>ficticios e inventados para el ejemplo</b>: no corresponden a ninguna
+      persona, empresa ni institución financiera real, y la demo <b>no se conecta con ningún banco ni
+      con ningún sistema</b>. Lo que marques se guarda únicamente en tu propio navegador.
+      Los resultados son referenciales, pueden contener errores y no constituyen asesoría contable
+      ni tributaria. AliadoPyme no se responsabiliza por los datos ingresados ni por ajustes
+      contables, pagos o declaraciones que se realicen en base a esta herramienta.
+      <br><br>
+      La implementación real se desarrolla a medida según el banco, el punto de venta y el sistema
+      contable o ERP de cada empresa (Flexline, Defontana, Softland, Bsale u otro), y requiere su
+      evaluación técnica previa. Las marcas mencionadas pertenecen a sus respectivos titulares.
+    </div>
+  </div>
+</section>
+
+<!-- ================= CIERRE ================= -->
+<section class="seccion-alt">
+  <div class="contenedor cierre">
+    <h2 class="titulo-seccion">¿Lo quieres para tu empresa o para tus clientes?</h2>
+    <p class="subtitulo-seccion">En AliadoPyme hacemos las dos cosas: conciliamos tus cuentas cada
+       mes como servicio, o desarrollamos la herramienta a la medida de tu operación. Conversemos
+       15 minutos y te digo qué conviene en tu caso.</p>
+    <div class="acciones">
+      <a href="index.html#calculadora" class="btn">Calcular el valor del servicio</a>
+      <a class="btn btn-whatsapp" id="cta-whatsapp" target="_blank" rel="noopener">Escribir por WhatsApp</a>
+      <a class="btn btn-secundario" href="tecnologia.html">Desarrollo a medida</a>
+    </div>
+    <p style="margin-top:26px;color:var(--texto-suave);font-size:0.9rem">
+      ¿Solo necesitas conciliar la cartola contra tu libro de banco?
+      Prueba <a href="conciliago.html" style="color:var(--acento-oscuro);font-weight:600">ConciliaGO</a>,
+      nuestra demo que empareja ambos archivos en Excel o CSV y arma el estado de conciliación.
+    </p>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="contenedor">
+    <div class="footer-grid">
+      <div>
+        <h4>AliadoPyme</h4>
+        <p>Consultora integral para pymes en Chile: contabilidad, remuneraciones, recursos
+           humanos, derecho laboral, prevención de riesgos y tecnología.</p>
+      </div>
+      <div>
+        <h4>Conciliación bancaria</h4>
+        <ul>
+          <li><a href="#demo">Demo de depósitos y caja</a></li>
+          <li><a href="conciliago.html">App ConciliaGO (cartola + libro)</a></li>
+          <li><a href="index.html#servicios">Servicio mensual de conciliación</a></li>
+          <li><a href="tecnologia.html">Desarrollo de software a medida</a></li>
+          <li><a href="index.html#calculadora">Calculadora de servicios</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contacto</h4>
+        <ul>
+          <li><a id="footer-email" href="#">Correo electrónico</a></li>
+          <li><a id="footer-whatsapp" href="#" target="_blank" rel="noopener">WhatsApp</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-final">© 2026 AliadoPyme — aliadopyme.cl · Conciliación bancaria</div>
+  </div>
+</footer>
+
+<script src="js/config.js?v=20261008"></script>
+<script>
+  document.getElementById("footer-email").href = "mailto:" + CONFIG.EMAIL;
+  document.getElementById("footer-email").textContent = CONFIG.EMAIL;
+  document.getElementById("footer-whatsapp").href = "https://wa.me/" + CONFIG.WHATSAPP;
+
+  var msg = encodeURIComponent(
+    "Hola AliadoPyme, vi la demo de conciliación de depósitos y caja en el sitio. " +
+    "Quiero saber cómo aplicarla en: ");
+  document.getElementById("cta-whatsapp").href = "https://wa.me/" + CONFIG.WHATSAPP + "?text=" + msg;
+</script>
+<script src="js/meta-pixel.js?v=20261008"></script>
+</body>
+</html>
