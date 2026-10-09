@@ -126,8 +126,9 @@
 <section id="demo">
   <div class="contenedor">
     <h2 class="titulo-seccion">Pruébalo tú mismo</h2>
-    <p class="subtitulo-seccion">Esta es una demostración completa y funcional: trabaja sobre tres
-       portales bancarios simulados, con una capa de conciliación encima. Puedes hacer clic en todo.</p>
+    <p class="subtitulo-seccion">La demostración <b>parte sola</b> y te va explicando cada paso sobre
+       tres portales bancarios simulados. Cuando quieras tomar el control, detenla y sigue tú:
+       puedes hacer clic en todo.</p>
 
     <div class="demo-marco">
       <div class="demo-barra">
@@ -137,8 +138,8 @@
       </div>
 
       <div class="demo-ventana">
-        <iframe src="conciliago-extension.html" title="Demo interactiva de conciliación de depósitos y caja"
-                loading="lazy"></iframe>
+        <iframe id="demo-frame" src="conciliago-extension.html"
+                title="Demo interactiva de conciliación de depósitos y caja" loading="lazy"></iframe>
       </div>
 
       <div class="demo-solo-movil">
@@ -150,12 +151,13 @@
       </div>
 
       <p class="demo-pie">
-        <b>Cómo recorrerla:</b> pulsa <b>🎟️ Tickets</b> sobre cualquier abono verde, usa
+        <b>Primero mira, después prueba.</b> La demostración recorre sola los 13 pasos del flujo y
+        se detiene apenas hagas clic en cualquier parte, o cuando pulses <b>Probar yo mismo</b>.
+        Desde ahí sigue tú: pulsa <b>🎟️ Tickets</b> sobre cualquier abono verde, usa
         <b>✨ Autocompletar</b> para cargar los tickets de ese depósito, verifica, emite el memo y
-        luego pulsa <b>Sincronizar con el ERP</b>. Prueba también el abono de $45.500 (tiene una
-        diferencia mínima de $20), el de $197.460 (caja aún no emite la factura) y el de $45.000
-        (ticket inexistente). Cambia de pestaña entre los tres bancos y mira cómo el equipo trabaja
-        en paralelo. Doble clic sobre un timbre lo devuelve a pendiente.
+        pulsa <b>Sincronizar con el ERP</b>. Prueba también el abono de $45.500 (trae una diferencia
+        mínima de $20) y el de $45.000 (ticket que no existe en el ERP). Cambia de pestaña entre los
+        tres bancos, y con doble clic sobre un timbre devuelves el depósito a pendiente.
       </p>
     </div>
   </div>
@@ -351,6 +353,28 @@
     "Hola AliadoPyme, vi la demo de conciliación de depósitos y caja en el sitio. " +
     "Quiero saber cómo aplicarla en: ");
   document.getElementById("cta-whatsapp").href = "https://wa.me/" + CONFIG.WHATSAPP + "?text=" + msg;
+
+  /* La demostración automática parte recién cuando la ventana de la demo
+     entra en pantalla, para que el visitante no se pierda los primeros pasos. */
+  (function () {
+    var marco = document.querySelector(".demo-ventana");
+    var frame = document.getElementById("demo-frame");
+    if (!marco || !frame || !("IntersectionObserver" in window)) return;
+    var visible = false, avisado = false;
+    function avisar() {
+      if (avisado || !visible) return;
+      var w = frame.contentWindow;
+      // El iframe puede no haber terminado de cargar: se reintenta.
+      if (!w || typeof w.iniciarDemostracion !== "function") { setTimeout(avisar, 300); return; }
+      avisado = true;
+      setTimeout(function () { w.postMessage({ conciliago: "iniciar" }, location.origin); }, 900);
+    }
+    frame.addEventListener("load", avisar);
+    var io = new IntersectionObserver(function (entradas) {
+      entradas.forEach(function (e) { if (e.isIntersecting) { visible = true; io.disconnect(); avisar(); } });
+    }, { threshold: 0.4 });
+    io.observe(marco);
+  })();
 </script>
 <script src="js/meta-pixel.js?v=20261008"></script>
 </body>

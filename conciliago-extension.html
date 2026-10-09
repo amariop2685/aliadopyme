@@ -376,6 +376,40 @@
   .toast.team{background:var(--morado)}
   .toast.caja{background:var(--celeste)}
 
+  /* ================= Guía: demostración automática ================= */
+  .guia{
+    position:fixed;left:50%;bottom:18px;transform:translateX(-50%) translateY(150%);
+    z-index:260;width:min(820px,calc(100vw - 28px));
+    background:rgba(11,61,92,.97);color:#fff;border-radius:14px;
+    box-shadow:0 16px 46px rgba(10,20,50,.42);padding:12px 16px;
+    display:flex;align-items:center;gap:14px;transition:transform .4s;
+  }
+  .guia.show{transform:translateX(-50%) translateY(0)}
+  .guia .num{
+    background:#0e9594;border-radius:99px;font-size:10px;font-weight:800;
+    padding:5px 11px;white-space:nowrap;flex-shrink:0;letter-spacing:.3px;
+  }
+  .guia .cuerpo{flex:1;min-width:0}
+  .guia .txt{font-size:13px;line-height:1.45}
+  .guia .txt b{color:#7fe3df}
+  .guia .barra{height:3px;background:rgba(255,255,255,.16);border-radius:99px;margin-top:8px;overflow:hidden}
+  .guia .barra i{display:block;height:100%;width:0;background:#0e9594;border-radius:99px;transition:width .45s}
+  .guia .bo{display:flex;gap:8px;flex-shrink:0;flex-wrap:wrap;justify-content:flex-end}
+  .guia button,.guia a{
+    border:0;border-radius:9px;padding:8px 13px;font-size:11.5px;font-weight:700;
+    cursor:pointer;font-family:inherit;text-decoration:none;white-space:nowrap;
+    background:#0e9594;color:#fff;
+  }
+  .guia button.sec,.guia a.sec{background:rgba(255,255,255,.14);color:#dbeaf2}
+  .guia button:hover,.guia a:hover{opacity:.88}
+  body.con-guia .toast{bottom:108px}
+  @media(max-width:780px){
+    .guia{flex-direction:column;align-items:stretch;gap:10px}
+    .guia .bo{justify-content:center}
+  }
+  .resalte{outline:2.5px dashed #0e9594;outline-offset:-2px;animation:brillo 1.4s infinite}
+  @keyframes brillo{0%,100%{outline-color:#0e9594}50%{outline-color:#9ae6e4}}
+
   /* ================= Aviso en pantallas chicas ================= */
   .movil{
     position:fixed;inset:0;z-index:400;background:#0b3d5c;color:#fff;display:none;
@@ -412,7 +446,7 @@
   <a class="marca" href="index.html"><img src="img/logo-icon.svg" alt="" width="24" height="24">Aliado<span>Pyme</span></a>
   <span class="etq">DEMO</span>
   <span class="txt">Simulación con bancos y datos ficticios — ningún dato real, ninguna conexión a un banco.</span>
-  <a class="cta2" href="conciliacion-bancaria.html">¿Cómo funciona?</a>
+  <a class="cta2" href="#" onclick="tourStart(true);return false">▶ Ver cómo funciona</a>
   <a class="cta" href="index.html#calculadora">Cotizar servicio</a>
 </div>
 
@@ -528,6 +562,16 @@
       </div>
     </div>
   </div>
+</div>
+
+<!-- Guía de la demostración automática -->
+<div class="guia" id="guia">
+  <span class="num" id="guiaNum">Demostración</span>
+  <div class="cuerpo">
+    <div class="txt" id="guiaTxt"></div>
+    <div class="barra"><i id="guiaBar"></i></div>
+  </div>
+  <div class="bo" id="guiaBo"></div>
 </div>
 
 <div class="toast" id="toast"></div>
@@ -1195,41 +1239,154 @@ function cajaEmite(){
   if(touched){renderAll();toast("📠 Caja emitió Factura #589 · el ERP actualizó la conciliación automáticamente","caja");}
 }
 
-/* ================= SIMULACIÓN DEL EQUIPO ================= */
-function simulateTeam(){
-  setTimeout(()=>{
-    if(rowState["sanr0"])return;
-    locks["sanr0"]="carla";renderAll();
-    pushActivity("carla","<b>Carla</b> está verificando tickets de un depósito en <b>Banco Pacífico</b>");
-    toast("👩‍💻 Carla se conectó y está conciliando en Banco Pacífico","team");
-  },6000);
-  setTimeout(()=>{
-    delete locks["sanr0"];
-    if(rowState["sanr0"]){renderAll();return;}
-    memoSeq++;
-    rowState["sanr0"]={status:"memo",tickets:[{id:"4587219",amt:28080}],dif:0,user:"carla",memoN:"M-2026-"+memoSeq,tipo:"boleta",rut:null};
-    renderAll();
-    pushActivity("carla",`<b>Carla</b> verificó y emitió el memo <b>M-2026-${memoSeq}</b> ($ 28.080)`);
-  },12000);
-  setTimeout(()=>{
-    if(rowState["sanr0"]&&rowState["sanr0"].user==="carla")applySync(["sanr0"],"carla");
-    toast("✓ Carla concilió: el ERP devolvió Boleta #1049 para su memo","team");
-  },16000);
-  setTimeout(()=>{
-    if(rowState["besr0"])return;
-    locks["besr0"]="diego";renderAll();
-    pushActivity("diego","<b>Diego</b> está revisando un abono de la procesadora en <b>Banco del Sur</b>");
-  },19000);
-  setTimeout(()=>{
-    delete locks["besr0"];
-    if(rowState["besr0"]){renderAll();return;}
-    memoSeq++;
-    rowState["besr0"]={status:"memo",tickets:[{id:"3900101",amt:55}],dif:0,user:"diego",memoN:"M-2026-"+memoSeq,tipo:"boleta",rut:null};
-    applySync(["besr0"],"diego");
-  },24000);
-  /* caja emite la Factura #589 más tarde */
-  setTimeout(cajaEmite,32000);
+/* ================= DEMOSTRACIÓN AUTOMÁTICA GUIADA =================
+   Recorre sola el flujo completo explicando cada paso y, al terminar
+   (o cuando el visitante toca cualquier cosa), se detiene y le cede
+   el control para que pruebe él mismo. */
+const guia=document.getElementById("guia"),
+      guiaNum=document.getElementById("guiaNum"),
+      guiaTxt=document.getElementById("guiaTxt"),
+      guiaBar=document.getElementById("guiaBar"),
+      guiaBo=document.getElementById("guiaBo");
+let tourT=null,tourIdx=0,tourOn=false,tourPausado=false;
+
+function resaltar(sel){
+  document.querySelectorAll(".resalte").forEach(e=>e.classList.remove("resalte"));
+  if(!sel)return;
+  const el=typeof sel==="string"?document.querySelector(sel):sel;
+  if(el)el.classList.add("resalte");
 }
+
+const TOUR=[
+  {t:'Esta es la <b>cartola del banco</b>, igual a la que abres todos los días. ConciliaGO trabaja <b>encima</b> de ella, sin sacarte de aquí.',
+   ms:4200, go:()=>{currentBank="bch";renderAll();resaltar("#tblwrap");}},
+
+  {t:'Tomemos el abono de <b>$197.460</b>: alguien de caja te trae los tickets de ese depósito.',
+   ms:3600, go:()=>{resaltar('tr[data-row-id="bchr4"]');}},
+
+  {t:'Se abre la ventana de tickets sobre esa misma fila. No hay que buscar el movimiento en otra parte.',
+   ms:2800, go:()=>{resaltar(null);openTickets("bchr4");}},
+
+  {t:'Se cargan los tickets <b>4587204</b> y <b>4587205</b>: entre los dos suman exactamente el abono del banco. <b>Un depósito puede cerrar con varias ventas.</b>',
+   ms:4200, go:()=>{suggestTickets();}},
+
+  {t:'Como a este cliente le corresponde <b>factura</b>, se registra su RUT y se valida el dígito verificador antes de seguir.',
+   ms:4000, go:()=>{resaltar("#rutRow");}},
+
+  {t:'Verificado contra el banco. Este es el <b>memo para caja</b>, todavía en borrador: fecha, banco, monto, tickets, tipo de documento y diferencia.',
+   ms:4400, go:()=>{resaltar(null);verifyDeposit(true);}},
+
+  {t:'Se emite con <b>sello y firma</b>. Esto es lo que se imprime y se entrega en caja para que generen la boleta o la factura.',
+   ms:3800, go:()=>{emitMemo();}},
+
+  {t:'Ahora sincronizamos con el <b>ERP</b> para traer el número de documento que caja haya emitido.',
+   ms:3800, go:()=>{syncMine();}},
+
+  {t:'Caja todavía no emite esa factura, así que el depósito queda en <b>espera</b>. Nadie tiene que acordarse de volver a revisarlo.',
+   ms:4200, go:()=>{resaltar('tr[data-row-id="bchr4"]');}},
+
+  {t:'Mientras tanto <b>Carla</b> está conciliando en otro banco, desde su propio equipo. Su abono aparece tomado para que nadie lo duplique.',
+   ms:4200, go:()=>{
+     resaltar(null);currentBank="san";locks["sanr0"]="carla";renderAll();
+     resaltar('tr[data-row-id="sanr0"]');
+     pushActivity("carla","<b>Carla</b> está verificando tickets de un depósito en <b>Banco Pacífico</b>");
+     toast("👩‍💻 Carla se conectó y está conciliando en Banco Pacífico","team");
+   }},
+
+  {t:'Carla verificó, emitió su memo y el ERP le devolvió la <b>Boleta #1049</b>. Tú lo ves al instante, sin pedirle su Excel.',
+   ms:4400, go:()=>{
+     resaltar(null);delete locks["sanr0"];memoSeq++;
+     rowState["sanr0"]={status:"memo",tickets:[{id:"4587219",amt:28080}],dif:0,user:"carla",memoN:"M-2026-"+memoSeq,tipo:"boleta",rut:null};
+     applySync(["sanr0"],"carla");
+     toast("✓ Carla concilió: el ERP devolvió Boleta #1049 para su memo","team");
+   }},
+
+  {t:'Volvemos a nuestro depósito: <b>caja emitió la Factura #589</b> y el ERP la escribió sola sobre la fila del banco, con su fecha de pago.',
+   ms:4800, go:()=>{
+     currentBank="bch";renderAll();cajaEmite();resaltar('tr[data-row-id="bchr4"]');
+   }},
+
+  {t:'Y todo el proceso —tickets, diferencias, memos, documentos y quién concilió cada uno— se exporta a <b>Excel</b> con su hoja resumen.',
+   ms:4200, go:()=>{resaltar(null);resaltar(".xbtn");}},
+];
+
+function guiaBotones(fin){
+  guiaBo.innerHTML = fin
+    ? `<button onclick="guiaCerrar()">🎟️ Probar yo mismo</button>
+       <button class="sec" onclick="tourStart(true)">↻ Ver de nuevo</button>`
+    : `<button class="sec" id="btnPausa" onclick="tourPausar()">⏸ Pausar</button>
+       <button onclick="tourDetener(true)">Probar yo mismo →</button>`;
+}
+function guiaMostrar(){guia.classList.add("show");document.body.classList.add("con-guia");}
+function guiaCerrar(){guia.classList.remove("show");document.body.classList.remove("con-guia");resaltar(null);}
+
+function reiniciarEstado(){
+  Object.keys(rowState).forEach(k=>delete rowState[k]);
+  Object.keys(locks).forEach(k=>delete locks[k]);
+  delete FLEX_DOCS["4587204"];delete FLEX_DOCS["4587205"];
+  memoSeq=147;cajaDone=false;activity.length=0;
+  try{localStorage.removeItem(STORE_KEY);}catch(e){}
+  document.getElementById("activity").innerHTML="";
+  closeM("mTickets");closeM("mMemo");
+  currentBank="bch";renderAll();
+  pushActivity("me","<b>Tú</b> iniciaste la sesión · 3 pestañas de banco detectadas (AUS · PAC · SUR)");
+}
+
+function tourPaso(){
+  if(tourIdx>=TOUR.length){tourFin();return;}
+  const p=TOUR[tourIdx];
+  guiaNum.textContent="Paso "+(tourIdx+1)+" de "+TOUR.length;
+  guiaTxt.innerHTML=p.t;
+  guiaBar.style.width=Math.round((tourIdx+1)/TOUR.length*100)+"%";
+  try{if(p.go)p.go();}catch(e){}
+  tourIdx++;
+  tourT=setTimeout(tourPaso,p.ms);
+}
+function tourStart(reiniciar){
+  clearTimeout(tourT);
+  if(reiniciar)reiniciarEstado();
+  tourIdx=0;tourOn=true;tourPausado=false;
+  guiaMostrar();guiaBotones(false);
+  tourPaso();
+}
+function tourPausar(){
+  tourPausado=!tourPausado;
+  const b=document.getElementById("btnPausa");
+  if(tourPausado){clearTimeout(tourT);if(b)b.textContent="▶ Seguir";}
+  else{if(b)b.textContent="⏸ Pausar";tourPaso();}
+}
+function tourFin(){
+  tourOn=false;clearTimeout(tourT);resaltar(null);
+  guiaNum.textContent="✓ Listo";
+  guiaTxt.innerHTML='Ese es el flujo completo: <b>tickets → memo → caja → ERP</b>. Ahora pruébalo tú: pulsa <b>🎟️ Tickets</b> sobre cualquier abono verde de la cartola y repite el recorrido con tus propios números.';
+  guiaBar.style.width="100%";
+  guiaBotones(true);
+}
+function tourDetener(cerrarVentanas){
+  if(!tourOn)return;
+  tourOn=false;tourPausado=false;clearTimeout(tourT);resaltar(null);
+  if(cerrarVentanas){closeM("mTickets");closeM("mMemo");}
+  guiaNum.textContent="Tu turno";
+  guiaTxt.innerHTML='Demostración detenida: sigue tú desde aquí. Pulsa <b>🎟️ Tickets</b> sobre un abono verde, usa <b>✨ Autocompletar</b> y recorre el flujo a tu ritmo.';
+  guiaBotones(true);
+}
+function iniciarDemostracion(){
+  if(!tourOn&&guia.classList.contains("show"))tourStart(false);
+}
+/* Cuando la demo va embebida en el landing, la página contenedora avisa
+   en cuanto queda a la vista para que no se reproduzca a espaldas del
+   visitante. Solo se acepta el aviso del propio sitio. */
+window.addEventListener("message",e=>{
+  if(e.origin!==location.origin)return;
+  if(e.data&&e.data.conciliago==="iniciar")iniciarDemostracion();
+});
+/* Cualquier clic del visitante sobre la página detiene la demostración
+   y le entrega el control, sin cerrarle lo que tenga abierto. */
+document.addEventListener("pointerdown",e=>{
+  if(!tourOn)return;
+  if(e.target.closest("#guia"))return;
+  tourDetener(false);
+},true);
 
 /* ================= PANEL: arrastrar / transparencia ================= */
 const panel=document.getElementById("panel"),head=document.getElementById("panelHead");
@@ -1274,9 +1431,25 @@ if(wasRestored){
   const n=Object.keys(rowState).length;
   pushActivity("me",`<b>Tú</b> reabriste la extensión — se cargaron <b>${n}</b> conciliación(es) desde la BBDD central`);
   toast(`🗄️ Se cargaron ${n} conciliación(es) desde la BBDD central`,"okc");
+  guiaMostrar();
+  guiaNum.textContent="Demostración";
+  guiaTxt.innerHTML=`Tienes <b>${n} conciliación(es)</b> guardadas de una visita anterior. Puedes seguir donde ibas o ver la demostración automática desde cero.`;
+  guiaBar.style.width="100%";
+  guiaBo.innerHTML=`<button onclick="tourStart(true)">▶ Ver la demostración</button>
+                    <button class="sec" onclick="guiaCerrar()">Seguir yo</button>`;
 }else{
   pushActivity("me","<b>Tú</b> iniciaste la sesión · 3 pestañas de banco detectadas (AUS · PAC · SUR)");
-  simulateTeam();
+  guiaMostrar();
+  guiaNum.textContent="Demostración";
+  guiaTxt.innerHTML="Te voy a mostrar el flujo completo en unos pasos. Puedes detenerlo cuando quieras y probar tú mismo.";
+  guiaBar.style.width="0%";
+  guiaBo.innerHTML=`<button onclick="tourStart(false)">▶ Comenzar</button>
+                    <button class="sec" onclick="guiaCerrar()">Prefiero probar yo</button>`;
+  /* Arranca sola, pero solo cuando la demo está realmente a la vista. Dentro
+     del landing va en un iframe que puede cargarse mucho antes de que el
+     visitante llegue a esa altura: allí es la página contenedora la que avisa
+     (ver el aviso "conciliago:iniciar" más abajo). */
+  if(window.self===window.top&&window.innerWidth>=860)setTimeout(iniciarDemostracion,1400);
 }
 window.addEventListener("resize",renderOverlays);
 </script>
