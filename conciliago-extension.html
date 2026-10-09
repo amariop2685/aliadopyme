@@ -436,18 +436,19 @@
   <p>Simula tres portales bancarios con la cartola completa y un panel de trabajo encima, así que
      necesita pantalla ancha. Ábrela desde tu notebook o PC de la oficina.</p>
   <div class="bo">
-    <a href="conciliacion-bancaria.html">Volver y leer de qué se trata</a>
+    <a href="conciliacion-bancaria.html" target="_top">Volver y leer de qué se trata</a>
     <button class="sec" onclick="document.getElementById('avisoMovil').classList.add('oculto')">Entrar de todas formas</button>
   </div>
 </div>
 
 <!-- Cinta de marca -->
 <div class="cinta">
-  <a class="marca" href="index.html"><img src="img/logo-icon.svg" alt="" width="24" height="24">Aliado<span>Pyme</span></a>
+  <a class="marca" href="index.html" target="_top"><img src="img/logo-icon.svg" alt="" width="24" height="24">Aliado<span>Pyme</span></a>
   <span class="etq">DEMO</span>
   <span class="txt">Simulación con bancos y datos ficticios — ningún dato real, ninguna conexión a un banco.</span>
   <a class="cta2" href="#" onclick="tourStart(true);return false">▶ Ver cómo funciona</a>
-  <a class="cta" href="index.html#calculadora">Cotizar servicio</a>
+  <a class="cta" href="index.html#calculadora" target="_top"
+     onclick="mp('ClicCotizar',{origen:'demo-depositos'})">Cotizar servicio</a>
 </div>
 
 <div class="chrome">
@@ -580,6 +581,20 @@
 const fmt=n=>"$ "+n.toLocaleString("es-CL");
 const TOL=100; /* tolerancia de diferencia mínima */
 const EMPRESA="COMERCIAL DEMO SpA";
+
+/* ================= MEDICIÓN (Meta Pixel) =================
+   js/meta-pixel.js expone mpEvento(). Como esta demo va embebida en un
+   iframe dentro del landing, allí los eventos se reenvían a la página
+   contenedora y es ella la que los reporta. Si el píxel no está activo,
+   estas llamadas no hacen nada. */
+const mpHechos={};
+function mp(nombre,datos){
+  if(typeof window.mpEvento==="function")window.mpEvento(nombre,datos||{});
+}
+function mpUnaVez(clave,nombre,datos){
+  if(mpHechos[clave])return;
+  mpHechos[clave]=true;mp(nombre,datos);
+}
 
 /* ================= USUARIOS (ficticios) ================= */
 const USERS={
@@ -757,6 +772,7 @@ function exportRows(){
 function exportExcel(){
   const rows=exportRows();
   if(!rows.length){toast("Aún no hay conciliaciones para exportar","warn");return;}
+  mpUnaVez("exportar","DemoAccion",{accion:"exportar-excel"});
   const hoy=new Date().toISOString().slice(0,10);
   if(typeof XLSX!=="undefined"){
     const wb=XLSX.utils.book_new();
@@ -1052,6 +1068,7 @@ function pushActivity(uk,html){
 function openTickets(rowId){
   if(locks[rowId]){toast(`🔒 ${USERS[locks[rowId]].n} está trabajando este abono`,"team");return;}
   if(rowState[rowId]){toast("Este abono ya está en trabajo (doble clic en el timbre para deshacer)","warn");return;}
+  if(!tourOn)mpUnaVez("tickets","DemoAccion",{accion:"abrir-tickets"});
   modalRow=rowId;modalTickets=[];
   const r=findRow(rowId);
   document.getElementById("mSub").textContent=`${r.desc} — abono de ${fmt(r.abono)} · ${banks[r.bank].plain}`;
@@ -1117,6 +1134,7 @@ function renderTkList(){
   document.getElementById("btnVerifyMemo").disabled=!okBtn;
 }
 function verifyDeposit(andMemo){
+  if(!tourOn)mpUnaVez("verificar","DemoAccion",{accion:"verificar"});
   const r=findRow(modalRow);
   const sum=modalTickets.reduce((a,t)=>a+t.amt,0);
   rowState[modalRow]={status:"verified",tickets:[...modalTickets],dif:Math.abs(sum-r.abono),user:"me",
@@ -1159,6 +1177,7 @@ function openMemo(rowId){
   document.getElementById("mMemo").classList.add("show");
 }
 function emitMemo(){
+  if(!tourOn)mpUnaVez("memo","DemoAccion",{accion:"emitir-memo"});
   const st=rowState[memoRow],r=findRow(memoRow);
   memoSeq++;
   st.status="memo";st.memoN="M-2026-"+memoSeq;
@@ -1171,6 +1190,7 @@ function emitMemo(){
 function syncMine(){
   const ids=Object.keys(rowState).filter(id=>{const s=rowState[id];return (s.status==="memo"||s.status==="waitdoc")&&s.user==="me";});
   if(!ids.length)return;
+  if(!tourOn)mpUnaVez("sync","DemoAccion",{accion:"sincronizar-erp"});
   const btn=document.getElementById("syncBtn");
   btn.classList.add("loading");btn.disabled=true;
   document.getElementById("syncLbl").textContent=" Consultando el ERP… ";
@@ -1347,6 +1367,7 @@ function tourStart(reiniciar){
   if(reiniciar)reiniciarEstado();
   tourIdx=0;tourOn=true;tourPausado=false;
   guiaMostrar();guiaBotones(false);
+  mp("DemoIniciada",{demo:"depositos-caja",modo:reiniciar?"repeticion":"primera"});
   tourPaso();
 }
 function tourPausar(){
@@ -1357,6 +1378,7 @@ function tourPausar(){
 }
 function tourFin(){
   tourOn=false;clearTimeout(tourT);resaltar(null);
+  mp("DemoCompletada",{demo:"depositos-caja"});
   guiaNum.textContent="✓ Listo";
   guiaTxt.innerHTML='Ese es el flujo completo: <b>tickets → memo → caja → ERP</b>. Ahora pruébalo tú: pulsa <b>🎟️ Tickets</b> sobre cualquier abono verde de la cartola y repite el recorrido con tus propios números.';
   guiaBar.style.width="100%";
@@ -1365,6 +1387,7 @@ function tourFin(){
 function tourDetener(cerrarVentanas){
   if(!tourOn)return;
   tourOn=false;tourPausado=false;clearTimeout(tourT);resaltar(null);
+  mp("DemoTomaControl",{demo:"depositos-caja",paso:tourIdx});
   if(cerrarVentanas){closeM("mTickets");closeM("mMemo");}
   guiaNum.textContent="Tu turno";
   guiaTxt.innerHTML='Demostración detenida: sigue tú desde aquí. Pulsa <b>🎟️ Tickets</b> sobre un abono verde, usa <b>✨ Autocompletar</b> y recorre el flujo a tu ritmo.';
@@ -1453,6 +1476,6 @@ if(wasRestored){
 }
 window.addEventListener("resize",renderOverlays);
 </script>
-<script src="js/meta-pixel.js?v=20261008"></script>
+<script src="js/meta-pixel.js?v=20261008b"></script>
 </body>
 </html>
