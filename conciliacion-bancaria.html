@@ -4,9 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Conciliación bancaria de depósitos y caja — demo para contadores y tesorería | AliadoPyme</title>
-  <meta name="description" content="Demo interactiva para contadores, asistentes contables y personal de tesorería: cuadra los depósitos de la cartola con los tickets de caja, emite el memo para la boleta o factura y recibe el número de documento desde el ERP. Sin planillas paralelas.">
-  <meta property="og:title" content="Cuadra depósitos, caja y boletas sin planillas paralelas">
-  <meta property="og:description" content="Demo interactiva de conciliación bancaria para contadores y tesorería: tickets → memo → caja → ERP, trabajando sobre la cartola del banco.">
+  <meta name="description" content="Demo interactiva para contadores, asistentes contables y personal de tesorería: cada abono del banco con sus tickets, su memo y su boleta o factura, cuadrado sobre la misma cartola y a la vista de todo el equipo. Sin planillas paralelas.">
+  <meta property="og:title" content="Cierra el mes sin perseguir un solo depósito">
+  <meta property="og:description" content="Demo interactiva para contadores y tesorería: tickets, memo, caja y el número de boleta o factura, todo cuadrado sobre la cartola del banco. Parte sola y la detienes cuando quieras probar.">
   <meta property="og:url" content="https://aliadopyme.cl/conciliacion-bancaria.html">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="es_CL">
@@ -17,6 +17,17 @@
   <link rel="icon" type="image/svg+xml" href="img/logo-icon.svg">
   <link rel="stylesheet" href="css/styles.css">
   <style>
+    /* ---------- hero ---------- */
+    .hero p.hero-remate {
+      font-size: 1rem; max-width: 620px; margin: -18px auto 30px; opacity: 0.86;
+    }
+    .hero-puntos {
+      list-style: none; display: flex; flex-wrap: wrap; justify-content: center;
+      gap: 6px 24px; max-width: 740px; margin: 28px auto 0; padding: 0;
+      font-size: 0.85rem; color: rgba(255, 255, 255, 0.82);
+    }
+    .hero-puntos li::before { content: "✓ "; color: #7fe3df; font-weight: 700; }
+
     /* ---------- marco de la demo ---------- */
     .demo-marco {
       background: #0b3d5c;
@@ -57,6 +68,11 @@
       border-radius: 10px; padding: 13px 16px; font-size: 0.95rem; color: var(--texto);
     }
     .seccion-alt .dolor-lista li { background: var(--fondo); }
+    .dolor-remate {
+      max-width: 760px; margin: 26px auto 0; text-align: center;
+      font-size: 1rem; color: var(--texto); line-height: 1.6;
+    }
+    .dolor-remate b { color: var(--azul); }
 
     .beneficios { list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; }
     .beneficios li {
@@ -93,24 +109,32 @@
 <!-- ================= HERO ================= -->
 <section class="hero">
   <div class="contenedor">
-    <span class="badge">🏦 Demo interactiva · para contadores y tesorería</span>
-    <h1>Cuadra los depósitos del banco con la caja, sin planillas paralelas</h1>
-    <p>Si tu día se va cruzando la cartola con los tickets de caja, persiguiendo qué boleta o
-       factura corresponde a cada depósito y anotándolo en un Excel aparte, prueba esta demo:
-       el trabajo queda <b>sobre la misma cartola del banco</b>, visible para todo el equipo.</p>
+    <span class="badge">🏦 Demo interactiva · hecha para contadores y tesorería</span>
+    <h1>Cierra el mes sin perseguir un solo depósito</h1>
+    <p>Cada abono del banco con sus tickets, su memo y su boleta o factura, cuadrado
+       <b>sobre la misma cartola</b> y a la vista de todo el equipo. Sin planillas paralelas,
+       sin preguntar en caja qué documento salió, sin descubrir el descuadre el día del cierre.</p>
+    <p class="hero-remate">Quien concilia deja de transcribir y vuelve a lo que sabe hacer:
+       revisar, cuadrar y responder con respaldo. <b>Míralo funcionando en dos minutos.</b></p>
     <div class="acciones">
-      <a href="#demo" class="btn">Probar la demo ahora</a>
+      <a href="#demo" class="btn">Ver la demostración ▸</a>
       <a href="index.html#calculadora" class="btn btn-secundario">Cotizar el servicio</a>
     </div>
+    <ul class="hero-puntos">
+      <li>Parte sola, no hay nada que instalar</li>
+      <li>La detienes cuando quieras y sigues tú</li>
+      <li>Datos ficticios, sin registro</li>
+    </ul>
   </div>
 </section>
 
 <!-- ================= EL PROBLEMA ================= -->
 <section class="seccion-alt">
   <div class="contenedor">
-    <h2 class="titulo-seccion">El problema de todos los meses</h2>
+    <h2 class="titulo-seccion">Lo que te roba el cierre de cada mes</h2>
     <p class="subtitulo-seccion">Esto es lo que nos cuentan los contadores y los equipos de
-       tesorería con los que trabajamos.</p>
+       tesorería con los que trabajamos. Si reconoces tres de estas seis, la demo de abajo
+       te va a interesar.</p>
     <ul class="dolor-lista">
       <li>Llegan los tickets de caja en papel y hay que sumarlos a mano para ver si calzan con el abono del banco.</li>
       <li>Un depósito junta dos o tres ventas, así que un abono no corresponde a un solo documento.</li>
@@ -119,6 +143,9 @@
       <li>Si es factura, el RUT queda en un papel y se descubre tarde que no coincide con el documento emitido.</li>
       <li>El avance vive en el Excel de una sola persona: si falta, nadie sabe qué quedó conciliado.</li>
     </ul>
+    <p class="dolor-remate">Nada de esto se arregla con otra planilla. Se arregla sacando el
+       proceso del Excel y dejándolo donde ya tienes los ojos puestos: <b>la cartola del banco</b>.
+       Eso es justo lo que vas a ver funcionando aquí abajo.</p>
   </div>
 </section>
 
