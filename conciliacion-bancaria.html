@@ -13,9 +13,72 @@
   <meta property="og:image" content="https://aliadopyme.cl/img/conciliago-og.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
+  <meta property="og:site_name" content="AliadoPyme">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Cierra el mes sin perseguir un solo depósito">
+  <meta name="twitter:description" content="Demo interactiva para contadores y tesorería: tickets, memo, caja y el número de boleta o factura, cuadrado sobre la cartola del banco.">
+  <meta name="twitter:image" content="https://aliadopyme.cl/img/conciliago-og.png">
   <link rel="canonical" href="https://aliadopyme.cl/conciliacion-bancaria.html">
   <link rel="icon" type="image/svg+xml" href="img/logo-icon.svg">
-  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/styles.css?v=20261012">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Service",
+        "name": "Conciliación bancaria de depósitos y caja",
+        "serviceType": "Conciliación bancaria",
+        "description": "Cuadratura mensual de los abonos de la cartola bancaria con los tickets de caja y los documentos tributarios emitidos, con informe de diferencias, para contadores y equipos de tesorería.",
+        "url": "https://aliadopyme.cl/conciliacion-bancaria.html",
+        "areaServed": { "@type": "Country", "name": "Chile" },
+        "audience": {
+          "@type": "Audience",
+          "audienceType": "Contadores, asistentes contables y personal de tesorería"
+        },
+        "provider": { "@type": "ProfessionalService", "name": "AliadoPyme", "url": "https://aliadopyme.cl/" }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://aliadopyme.cl/" },
+          { "@type": "ListItem", "position": 2, "name": "Conciliación bancaria", "item": "https://aliadopyme.cl/conciliacion-bancaria.html" }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "¿Qué es la conciliación bancaria y por qué hay que hacerla todos los meses?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Es comparar lo que dice el banco con lo que dice tu contabilidad y explicar la diferencia entre ambos saldos. Hay que hacerla cada mes porque siempre existen partidas que están en un lado y no en el otro: depósitos que el banco aún no acredita, cheques girados que nadie ha cobrado, comisiones e intereses que el banco cargó y todavía no se registran. Si la conciliación se deja para fin de año, esas diferencias se acumulan y encontrar el origen de un descuadre de hace ocho meses cuesta mucho más que haberlo visto cuando ocurrió." }
+          },
+          {
+            "@type": "Question",
+            "name": "Mis depósitos juntan varias ventas, ¿sirve igual?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Es justamente el caso que resuelve esta herramienta. Un abono del banco puede corresponder a varios tickets de caja y terminar en más de una boleta o factura, y al revés, una misma factura puede cubrir tickets de distintos depósitos. Por eso el cuadre no se hace abono contra documento, sino abono contra el conjunto de tickets que lo componen, aceptando además las diferencias mínimas de vuelto que quedan registradas en lugar de forzar el cuadre." }
+          },
+          {
+            "@type": "Question",
+            "name": "¿Se integra con el sistema contable o ERP que ya uso?",
+            "acceptedAnswer": { "@type": "Answer", "text": "La demostración del sitio funciona sola, sin conectarse a nada, para que puedas ver el flujo completo. La implementación real se desarrolla a medida según el banco, el punto de venta y el sistema contable o ERP de cada empresa, y requiere una evaluación técnica previa: hay que ver qué expone tu sistema y cómo se obtiene de él el número de documento emitido." }
+          },
+          {
+            "@type": "Question",
+            "name": "¿Mis datos bancarios salen de mi computador al usar la demo?",
+            "acceptedAnswer": { "@type": "Answer", "text": "No. La demostración usa datos ficticios y no se conecta con ningún banco ni con ningún sistema: lo que marques queda únicamente en tu propio navegador. Lo mismo ocurre en ConciliaGO, donde los archivos de cartola y libro de banco que cargas se leen en el navegador y nunca se suben a internet." }
+          },
+          {
+            "@type": "Question",
+            "name": "¿Hacen la conciliación como servicio o solo venden la herramienta?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Las dos cosas. Podemos conciliar tus cuentas bancarias cada mes y entregarte el informe de diferencias como un servicio contable más, o desarrollar la herramienta a la medida de tu operación si tienes un equipo propio que hace el trabajo y lo que necesitas es dejar de perseguir documentos en planillas." }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
   <style>
     /* ---------- hero ---------- */
     .hero p.hero-remate {
@@ -314,6 +377,73 @@
       La implementación real se desarrolla a medida según el banco, el punto de venta y el sistema
       contable o ERP de cada empresa (Flexline, Defontana, Softland, Bsale u otro), y requiere su
       evaluación técnica previa. Las marcas mencionadas pertenecen a sus respectivos titulares.
+    </div>
+  </div>
+</section>
+
+<!-- ================= PREGUNTAS FRECUENTES ================= -->
+<section id="preguntas">
+  <div class="contenedor">
+    <h2 class="titulo-seccion">Preguntas frecuentes sobre conciliación bancaria</h2>
+
+    <div class="faq">
+      <details>
+        <summary>¿Qué es la conciliación bancaria y por qué hay que hacerla todos los meses?</summary>
+        <div class="respuesta">
+          <p>Es comparar lo que dice el banco con lo que dice tu contabilidad y explicar la
+             diferencia entre ambos saldos. Siempre existen partidas que están en un lado y no en
+             el otro: depósitos que el banco aún no acredita, cheques girados que nadie ha cobrado,
+             comisiones e intereses que el banco cargó y todavía no se registran.</p>
+          <p>Hay que hacerla cada mes porque, si se deja para fin de año, esas diferencias se
+             acumulan: encontrar el origen de un descuadre de hace ocho meses cuesta mucho más que
+             haberlo visto cuando ocurrió.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>Mis depósitos juntan varias ventas, ¿sirve igual?</summary>
+        <div class="respuesta">
+          <p>Es justamente el caso que resuelve esta herramienta. Un abono del banco puede
+             corresponder a varios tickets de caja y terminar en más de una boleta o factura; y al
+             revés, una misma factura puede cubrir tickets de distintos depósitos.</p>
+          <p>Por eso el cuadre no se hace abono contra documento, sino abono contra el conjunto de
+             tickets que lo componen, aceptando además las diferencias mínimas de vuelto, que
+             quedan registradas en lugar de forzar el cuadre.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>¿Se integra con el sistema contable o ERP que ya uso?</summary>
+        <div class="respuesta">
+          <p>La demostración de este sitio funciona sola, sin conectarse a nada, para que puedas
+             ver el flujo completo.</p>
+          <p>La implementación real se desarrolla a medida según el banco, el punto de venta y el
+             sistema contable o ERP de cada empresa, y requiere una evaluación técnica previa: hay
+             que ver qué expone tu sistema y cómo se obtiene de él el número de documento emitido.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>¿Mis datos bancarios salen de mi computador al usar la demo?</summary>
+        <div class="respuesta">
+          <p>No. La demostración usa datos ficticios y no se conecta con ningún banco ni con ningún
+             sistema: lo que marques queda únicamente en tu propio navegador.</p>
+          <p>Lo mismo ocurre en <a href="conciliago.html">ConciliaGO</a>, donde los archivos de
+             cartola y libro de banco que cargas se leen en el navegador y nunca se suben a
+             internet.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>¿Hacen la conciliación como servicio o solo venden la herramienta?</summary>
+        <div class="respuesta">
+          <p>Las dos cosas. Podemos conciliar tus cuentas bancarias cada mes y entregarte el
+             informe de diferencias como un servicio contable más, o
+             <a href="tecnologia.html">desarrollar la herramienta a la medida</a> de tu operación si
+             ya tienes un equipo que hace el trabajo y lo que necesitas es dejar de perseguir
+             documentos en planillas.</p>
+        </div>
+      </details>
     </div>
   </div>
 </section>
