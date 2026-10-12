@@ -21,6 +21,11 @@
    La demo va embebida en un iframe dentro del landing. Ahí NO se inicia
    un segundo píxel (duplicaría las visitas): el iframe le pasa sus
    eventos a la página que lo contiene y esa los reporta.
+
+   CONSENTIMIENTO: el píxel NO se carga hasta que la persona acepta las
+   cookies en el aviso de js/cookies.js. Hasta entonces no se descarga
+   nada de Meta ni se instala ninguna cookie suya. Si ya había aceptado
+   en una visita anterior, arranca solo.
    ============================================================ */
 (function () {
   "use strict";
@@ -60,23 +65,41 @@
   /* Dentro del iframe no se carga el píxel: solo se reenvían los eventos. */
   if (enIframe || !META_PIXEL_ID) return;
 
-  /* Código base oficial de Meta */
-  !function (f, b, e, v, n, t, s) {
-    if (f.fbq) return; n = f.fbq = function () {
-      n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments);
-    };
-    if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = "2.0"; n.queue = [];
-    t = b.createElement(e); t.async = !0; t.src = v;
-    s = b.getElementsByTagName(e)[0]; s.parentNode.insertBefore(t, s);
-  }(window, document, "script", "https://connect.facebook.net/en_US/fbevents.js");
-
-  fbq("init", META_PIXEL_ID);
-  fbq("track", "PageView");
-
   const esApp = /^(liquidago|conciliago)$/.test(pagina);
   const esContenido = esApp || /^(conciliacion-bancaria|conciliago-extension)$/.test(pagina);
-  if (esContenido) fbq("track", "ViewContent", { content_name: pagina });
 
+  /* Arranca el píxel. Lo llama js/cookies.js cuando la persona acepta, y se
+     llama solo más abajo si el consentimiento ya estaba guardado. Es
+     idempotente: llamarlo dos veces no duplica la visita. */
+  let iniciado = false;
+  window.iniciarPixel = function () {
+    if (iniciado) return;
+    iniciado = true;
+
+    /* Código base oficial de Meta */
+    !function (f, b, e, v, n, t, s) {
+      if (f.fbq) return; n = f.fbq = function () {
+        n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments);
+      };
+      if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = "2.0"; n.queue = [];
+      t = b.createElement(e); t.async = !0; t.src = v;
+      s = b.getElementsByTagName(e)[0]; s.parentNode.insertBefore(t, s);
+    }(window, document, "script", "https://connect.facebook.net/en_US/fbevents.js");
+
+    fbq("init", META_PIXEL_ID);
+    fbq("track", "PageView");
+    if (esContenido) fbq("track", "ViewContent", { content_name: pagina });
+  };
+
+  /* Si ya aceptó en una visita anterior, arranca sin preguntar de nuevo.
+     Se lee el mismo registro que escribe js/cookies.js, para no depender
+     del orden en que se carguen los dos archivos. */
+  try {
+    if (localStorage.getItem("aliadopyme_cookies") === "aceptadas") window.iniciarPixel();
+  } catch (e) {}
+
+  /* Los clics se escuchan siempre; reportar() no hace nada mientras no
+     exista fbq, así que sin consentimiento no se envía ni se guarda nada. */
   document.addEventListener("click", function (e) {
     if (!e.target.closest) return;
 
