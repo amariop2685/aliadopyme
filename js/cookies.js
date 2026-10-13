@@ -73,10 +73,14 @@
        segundo plano, y el aviso quedaría sin aparecer. */
     void aviso.offsetHeight;
     aviso.classList.add("visible");
+    /* El botón flotante de WhatsApp se corre hacia arriba mientras el aviso
+       esté en pantalla, para que no queden uno encima del otro. */
+    document.body.classList.add("cookies-visibles");
   }
 
   function ocultar() {
     if (aviso) aviso.classList.remove("visible");
+    document.body.classList.remove("cookies-visibles");
   }
 
   function decidir(acepta) {

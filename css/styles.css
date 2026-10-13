@@ -509,6 +509,58 @@ footer ul li { margin-bottom: 6px; }
 .footer-redes a:hover { background: rgba(255, 255, 255, 0.24); }
 .footer-redes svg { width: 17px; height: 17px; fill: var(--blanco); }
 
+/* ---------- Botón flotante de WhatsApp ---------- */
+.wa-flotante {
+  position: fixed;
+  right: 20px;
+  bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+  z-index: 450;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  background: #25d366;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 999px;
+  padding: 13px 20px 13px 16px;
+  font-weight: 700;
+  font-size: 0.92rem;
+  box-shadow: 0 6px 22px rgba(18, 140, 73, 0.38);
+  transition: box-shadow 0.2s, bottom 0.35s;
+  /* Flota suave, como un globo, para que se note sin molestar. */
+  animation: wa-flotar 3.4s ease-in-out infinite;
+}
+
+@keyframes wa-flotar {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-7px); }
+}
+
+.wa-flotante:hover {
+  animation-play-state: paused;
+  transform: translateY(-4px) scale(1.04);
+  box-shadow: 0 12px 30px rgba(18, 140, 73, 0.5);
+  color: #fff;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wa-flotante { animation: none; }
+  .wa-flotante:hover { transform: none; }
+}
+
+.wa-flotante svg { width: 23px; height: 23px; fill: currentColor; flex-shrink: 0; }
+
+/* Mientras el aviso de cookies está arriba, el botón se corre para no taparlo. */
+body.cookies-visibles .wa-flotante { bottom: calc(150px + env(safe-area-inset-bottom, 0px)); }
+
+@media (max-width: 700px) {
+  .wa-flotante { padding: 14px; right: 16px; }
+  .wa-flotante span { display: none; }
+  body.cookies-visibles .wa-flotante { bottom: calc(190px + env(safe-area-inset-bottom, 0px)); }
+}
+
+@media print { .wa-flotante { display: none; } }
+
 /* ---------- Aviso de cookies ---------- */
 .aviso-cookies {
   position: fixed;
