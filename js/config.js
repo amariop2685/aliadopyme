@@ -19,7 +19,12 @@ const CONFIG = {
   // el sitio usa el flujo de WhatsApp/correo con fecha y hora.
   // Cómo crearla: Google Calendar → Crear → Horario de citas →
   // duración 15 min → días/horas disponibles → Compartir → Enlace.
-  BOOKING_URL_CALCULADORA: "",
+  // OJO con el formato: donde el calendario se abre con un BOTÓN va el enlace
+  // corto de Google, que es más limpio; donde se INCRUSTA en un iframe hay que
+  // usar la dirección larga con ?gv=true, porque el enlace corto responde
+  // SAMEORIGIN y el marco queda en blanco.
+  // Calendario de Mario, enlace corto: https://calendar.app.google/WeQY1xcHwEAkLaba6
+  BOOKING_URL_CALCULADORA: "https://calendar.app.google/WeQY1xcHwEAkLaba6",
 
   // URL del "Horario de citas" de Google Calendar DEL ABOGADO para
   // la asesoría legal (página legal.html). El abogado controla desde
@@ -33,7 +38,7 @@ const CONFIG = {
 
   // URL del "Horario de citas" para el diagnóstico de CONSULTORÍA
   // TECNOLÓGICA (tecnologia.html) — calendario de Mario.
-  BOOKING_URL_TECNOLOGIA: "",
+  BOOKING_URL_TECNOLOGIA: "https://calendar.google.com/calendar/appointments/schedules/AcZssZ3k9bNMokBS-w30GpKCmUecwgQLt8nEwaj7uhpMRTR7UCzUXq1_qJrk00sTkeA1qwlS5ptwDAZE?gv=true",
 
   /* ---------- SUELDO MÍNIMO (base de cálculo) ----------
      Ingreso mínimo mensual vigente en Chile. Los precios de los
