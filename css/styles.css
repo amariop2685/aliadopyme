@@ -437,6 +437,16 @@ footer ul li { margin-bottom: 6px; }
   opacity: 0.75;
 }
 
+/* Razón social: va bajo la marca, más discreta, porque identifica a la
+   empresa sin competir con el nombre comercial. */
+.footer-razon {
+  text-align: center;
+  font-size: 0.78rem;
+  opacity: 0.55;
+  margin-top: 6px;
+  line-height: 1.5;
+}
+
 /* ---------- Preguntas frecuentes ---------- */
 .faq { max-width: 820px; margin: 0 auto; }
 
