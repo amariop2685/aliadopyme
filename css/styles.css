@@ -137,6 +137,21 @@ header {
 
 .hero .acciones { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
 
+/* Línea bajo los botones: deja las apps a la vista sin tener que desplazarse. */
+.hero .hero-apps {
+  font-size: 0.95rem;
+  max-width: 600px;
+  margin: 24px auto 0;
+  opacity: 0.85;
+}
+.hero .hero-apps a {
+  color: #7fe3df;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.hero .hero-apps a:hover { color: var(--blanco); }
+
 .hero .btn-secundario { color: var(--blanco); border-color: var(--blanco); }
 .hero .btn-secundario:hover { background: var(--blanco); color: var(--azul); }
 
