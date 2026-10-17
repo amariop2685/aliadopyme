@@ -20,7 +20,7 @@
   <meta name="twitter:image" content="https://aliadopyme.cl/img/og-image.png">
   <link rel="canonical" href="https://aliadopyme.cl/">
   <link rel="icon" type="image/svg+xml" href="img/logo-icon.svg">
-  <link rel="stylesheet" href="css/styles.css?v=20261017">
+  <link rel="stylesheet" href="css/styles.css?v=20261017b">
 
   <script type="application/ld+json">
   {
@@ -157,6 +157,46 @@
   </div>
 </section>
 
+<!-- ================= DEMO EN VIVO ================= -->
+<section id="demo" class="seccion-alt">
+  <div class="contenedor">
+    <h2 class="titulo-seccion">Mira funcionando lo que hacemos</h2>
+    <p class="subtitulo-seccion">No desarrollamos presentaciones, desarrollamos herramientas.
+       Esta es una de las nuestras, trabajando sobre la cartola de un banco: cuadra los depósitos
+       con los tickets de caja y trae de vuelta el número de boleta o factura. Arranca sola.</p>
+
+    <div class="demo-marco">
+      <div class="demo-barra">
+        <span class="punto">● Demo con bancos y datos ficticios</span>
+        <span class="sp"></span>
+        <a href="conciliacion-bancaria.html">Ver de qué se trata ↗</a>
+      </div>
+
+      <div class="demo-ventana">
+        <iframe src="conciliago-extension.html"
+                title="Demo interactiva de conciliación de depósitos y caja" loading="lazy"></iframe>
+      </div>
+
+      <div class="demo-solo-movil">
+        <img src="img/logo-icon.svg" alt="">
+        <h3>La demo necesita pantalla de computador</h3>
+        <p>Simula tres portales bancarios con la cartola completa, así que se ve bien en un
+           notebook o PC. Ábrela cuando estés en la oficina.</p>
+        <a href="conciliacion-bancaria.html" class="btn">Ver de qué se trata</a>
+      </div>
+
+      <p class="demo-pie">Se detiene apenas hagas clic en cualquier parte y desde ahí sigues tú.
+        Los bancos, las cuentas y los datos son ficticios: no se conecta con ningún banco ni con
+        ningún sistema.</p>
+    </div>
+
+    <div class="acciones" style="justify-content:center;margin-top:26px">
+      <a href="conciliacion-bancaria.html" class="btn">Cómo funciona, paso a paso</a>
+      <a href="#calculadora" class="btn btn-secundario">Cotizar un servicio</a>
+    </div>
+  </div>
+</section>
+
 <!-- ================= APPS ================= -->
 <section id="apps">
   <div class="contenedor">
@@ -188,18 +228,6 @@
           <li>Liquidación lista para imprimir y libro exportable a Excel</li>
         </ul>
         <p style="margin-top:12px"><a href="liquidago.html" class="btn" style="padding:9px 18px;font-size:0.9rem">Probar LiquidaGO →</a></p>
-      </div>
-      <div class="tarjeta">
-        <span class="icono">🎟️</span>
-        <h3>Depósitos y caja</h3>
-        <p>Cuadra los abonos de la cartola con los tickets de caja y los documentos emitidos.</p>
-        <ul>
-          <li>Verifica los tickets contra el abono del banco, con tolerancia de diferencias</li>
-          <li>Emite el memo con sello y firma para que caja genere boleta o factura</li>
-          <li>Valida el RUT antes de facturar y lo compara con el documento emitido</li>
-          <li>Trae el número de boleta o factura desde el ERP y lo deja sobre la cartola</li>
-        </ul>
-        <p style="margin-top:12px"><a href="conciliacion-bancaria.html" class="btn" style="padding:9px 18px;font-size:0.9rem">Ver la demo interactiva →</a></p>
       </div>
     </div>
     <p style="text-align:center;color:var(--texto-suave);font-size:0.85rem;max-width:760px;margin:22px auto 0">
@@ -683,6 +711,7 @@
   document.getElementById("footer-email").textContent = CONFIG.EMAIL;
   document.getElementById("footer-whatsapp").href = "https://wa.me/" + CONFIG.WHATSAPP;
 </script>
+<script src="js/demo-embed.js?v=20261017"></script>
 <script src="js/cookies.js?v=20261013"></script>
 <script src="js/meta-pixel.js?v=20261016"></script>
 <script src="js/whatsapp.js?v=20261013"></script>

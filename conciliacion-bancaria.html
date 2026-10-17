@@ -20,7 +20,7 @@
   <meta name="twitter:image" content="https://aliadopyme.cl/img/conciliago-og.png">
   <link rel="canonical" href="https://aliadopyme.cl/conciliacion-bancaria.html">
   <link rel="icon" type="image/svg+xml" href="img/logo-icon.svg">
-  <link rel="stylesheet" href="css/styles.css?v=20261017">
+  <link rel="stylesheet" href="css/styles.css?v=20261017b">
 
   <script type="application/ld+json">
   {
@@ -90,39 +90,6 @@
       font-size: 0.85rem; color: rgba(255, 255, 255, 0.82);
     }
     .hero-puntos li::before { content: "✓ "; color: #7fe3df; font-weight: 700; }
-
-    /* ---------- marco de la demo ---------- */
-    .demo-marco {
-      background: #0b3d5c;
-      border-radius: var(--radio);
-      padding: 14px;
-      box-shadow: 0 18px 50px rgba(11, 61, 92, 0.28);
-    }
-    .demo-barra {
-      display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
-      padding: 0 4px 12px; color: #cfe6f1; font-size: 0.82rem;
-    }
-    .demo-barra .punto { color: #ffd4a3; font-weight: 700; }
-    .demo-barra .sp { flex: 1; }
-    .demo-barra a { color: #fff; font-weight: 600; }
-    .demo-ventana {
-      position: relative; border-radius: 10px; overflow: hidden;
-      background: #d6dae3; height: 680px;
-    }
-    .demo-ventana iframe { width: 100%; height: 100%; border: 0; display: block; }
-    .demo-solo-movil { display: none; }
-    .demo-pie { color: #a9c9d8; font-size: 0.78rem; padding: 12px 4px 0; line-height: 1.5; }
-
-    @media (max-width: 900px) {
-      .demo-ventana { display: none; }
-      .demo-solo-movil {
-        display: block; background: var(--blanco); border-radius: 10px;
-        padding: 22px; text-align: center;
-      }
-      .demo-solo-movil img { width: 56px; height: 56px; margin-bottom: 10px; }
-      .demo-solo-movil h3 { color: var(--azul); font-size: 1.05rem; margin-bottom: 8px; }
-      .demo-solo-movil p { color: var(--texto-suave); font-size: 0.9rem; margin-bottom: 16px; }
-    }
 
     /* ---------- bloques de apoyo ---------- */
     .dolor-lista { list-style: none; display: grid; gap: 10px; max-width: 760px; margin: 0 auto; }
@@ -512,30 +479,9 @@
     "Hola AliadoPyme, vi la demo de conciliación de depósitos y caja en el sitio. " +
     "Quiero saber cómo aplicarla en: ");
   document.getElementById("cta-whatsapp").href = "https://wa.me/" + CONFIG.WHATSAPP + "?text=" + msg;
-
-  /* La demostración automática parte recién cuando la ventana de la demo
-     entra en pantalla, para que el visitante no se pierda los primeros pasos. */
-  (function () {
-    var marco = document.querySelector(".demo-ventana");
-    var frame = document.getElementById("demo-frame");
-    if (!marco || !frame || !("IntersectionObserver" in window)) return;
-    var visible = false, avisado = false;
-    function avisar() {
-      if (avisado || !visible) return;
-      var w = frame.contentWindow;
-      // El iframe puede no haber terminado de cargar: se reintenta.
-      if (!w || typeof w.iniciarDemostracion !== "function") { setTimeout(avisar, 300); return; }
-      avisado = true;
-      setTimeout(function () { w.postMessage({ conciliago: "iniciar" }, location.origin); }, 900);
-    }
-    frame.addEventListener("load", avisar);
-    var io = new IntersectionObserver(function (entradas) {
-      entradas.forEach(function (e) { if (e.isIntersecting) { visible = true; io.disconnect(); avisar(); } });
-    }, { threshold: 0.4 });
-    io.observe(marco);
-  })();
 </script>
 <script src="js/cookies.js?v=20261013"></script>
+<script src="js/demo-embed.js?v=20261017"></script>
 <script src="js/meta-pixel.js?v=20261016"></script>
 <script src="js/whatsapp.js?v=20261013"></script>
 </body>
