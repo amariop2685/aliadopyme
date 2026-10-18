@@ -67,7 +67,12 @@
           {
             "@type": "Question",
             "name": "¿Mis datos bancarios salen de mi computador al usar la demo?",
-            "acceptedAnswer": { "@type": "Answer", "text": "No. La demostración usa datos ficticios y no se conecta con ningún banco ni con ningún sistema: lo que marques queda únicamente en tu propio navegador. Lo mismo ocurre en ConciliaGO, donde los archivos de cartola y libro de banco que cargas se leen en el navegador y nunca se suben a internet." }
+            "acceptedAnswer": { "@type": "Answer", "text": "No. La demostración usa datos ficticios y no se conecta con ningún banco ni con ningún sistema: lo que marques queda únicamente en tu propio navegador." }
+          },
+          {
+            "@type": "Question",
+            "name": "¿Cómo se accede a ConciliaGO?",
+            "acceptedAnswer": { "@type": "Answer", "text": "ConciliaGO es un servicio en la nube (SaaS). Cada contador o empresa entra con su usuario y contraseña y crea una o varias empresas, cada una con sus cuentas de banco y su ERP, y solo ve la información de las suyas. Tienes 15 días de prueba gratis; después se paga una suscripción mensual por el servicio. Escríbenos y activamos tu cuenta." }
           },
           {
             "@type": "Question",
@@ -399,6 +404,16 @@
       </details>
 
       <details>
+        <summary>¿Cómo se accede a ConciliaGO?</summary>
+        <div class="respuesta">
+          <p>ConciliaGO es un servicio en la nube (SaaS). Cada contador o empresa entra con su
+             <b>usuario y contraseña</b> y crea <b>una o varias empresas</b>, cada una con sus
+             cuentas de banco y su ERP, y solo ve la información de las suyas.</p>
+          <p>Tienes <b>15 días de prueba gratis</b>; después se paga una suscripción mensual por el
+             servicio. Escríbenos y activamos tu cuenta.</p>
+        </div>
+      </details>
+      <details>
         <summary>¿Hacen la conciliación como servicio o solo venden la herramienta?</summary>
         <div class="respuesta">
           <p>Las dos cosas. Podemos conciliar tus cuentas bancarias cada mes y entregarte el
@@ -416,13 +431,13 @@
 <section class="seccion-alt">
   <div class="contenedor cierre">
     <h2 class="titulo-seccion">¿Lo quieres para tu empresa o para tus clientes?</h2>
-    <p class="subtitulo-seccion">En AliadoPyme hacemos las dos cosas: conciliamos tus cuentas cada
-       mes como servicio, o desarrollamos la herramienta a la medida de tu operación. Conversemos
-       15 minutos y te digo qué conviene en tu caso.</p>
+    <p class="subtitulo-seccion">ConciliaGO es un servicio en la nube: entras con tu usuario y
+       contraseña y creas una o varias empresas, cada una con sus bancos y su ERP. Pruébalo gratis
+       15 días y después paga una suscripción mensual. Si prefieres que lo hagamos por ti, también conciliamos tus cuentas
+       cada mes como servicio.</p>
     <div class="acciones">
-      <a href="index.html#calculadora" class="btn">Calcular el valor del servicio</a>
-      <a class="btn btn-whatsapp" id="cta-whatsapp" target="_blank" rel="noopener">Escribir por WhatsApp</a>
-      <a class="btn btn-secundario" href="tecnologia.html">Desarrollo a medida</a>
+      <a class="btn btn-whatsapp" id="cta-whatsapp" target="_blank" rel="noopener">Probar ConciliaGO 15 días gratis</a>
+      <a href="index.html#calculadora" class="btn btn-secundario">Calcular el valor del servicio</a>
     </div>
   </div>
 </section>
@@ -467,13 +482,13 @@
   document.getElementById("footer-whatsapp").href = "https://wa.me/" + CONFIG.WHATSAPP;
 
   var msg = encodeURIComponent(
-    "Hola AliadoPyme, vi la demo de conciliación de depósitos y caja en el sitio. " +
-    "Quiero saber cómo aplicarla en: ");
+    "Hola AliadoPyme, vi la demo de ConciliaGO y quiero activar la prueba gratis de 15 días. " +
+    "Mi empresa (o las empresas que llevo) es: ");
   document.getElementById("cta-whatsapp").href = "https://wa.me/" + CONFIG.WHATSAPP + "?text=" + msg;
 </script>
 <script src="js/cookies.js?v=20261013"></script>
 <script src="js/demo-embed.js?v=20261017"></script>
 <script src="js/meta-pixel.js?v=20261016"></script>
-<script src="js/whatsapp.js?v=20261013"></script>
+<script src="js/whatsapp.js?v=20261018"></script>
 </body>
 </html>

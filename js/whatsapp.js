@@ -21,12 +21,10 @@
   var MENSAJES = {
     "liquidago":
       "Hola AliadoPyme, estuve probando LiquidaGO y quiero consultar por el servicio de remuneraciones para mi empresa.",
-    "conciliago":
-      "Hola AliadoPyme, estuve probando ConciliaGO y quiero consultar por el servicio de conciliación bancaria.",
     "conciliacion-bancaria":
-      "Hola AliadoPyme, vi la demo de conciliación de depósitos y caja y quiero saber cómo aplicarla en mi empresa.",
+      "Hola AliadoPyme, vi la demo de ConciliaGO y quiero activar la prueba gratis de 15 días para mi empresa.",
     "conciliago-extension":
-      "Hola AliadoPyme, vi la demo de conciliación de depósitos y caja y quiero saber cómo aplicarla en mi empresa.",
+      "Hola AliadoPyme, vi la demo de ConciliaGO y quiero activar la prueba gratis de 15 días para mi empresa.",
     "legal":
       "Hola AliadoPyme, necesito asesoría legal laboral. Mi consulta es sobre: ",
     "prevencion":
@@ -38,6 +36,13 @@
     "404":
       "Hola AliadoPyme, estaba buscando información en el sitio y quiero consultar por: "
   };
+
+  /* Botones del contenido con su propio mensaje: <a data-whatsapp="Hola..."> */
+  var conMensaje = document.querySelectorAll("a[data-whatsapp]");
+  for (var i = 0; i < conMensaje.length; i++) {
+    conMensaje[i].href = "https://wa.me/" + CONFIG.WHATSAPP + "?text=" +
+                         encodeURIComponent(conMensaje[i].getAttribute("data-whatsapp"));
+  }
 
   var POR_DEFECTO =
     "Hola AliadoPyme, quiero cotizar un servicio para mi empresa. Somos ";
