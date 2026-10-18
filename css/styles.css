@@ -289,17 +289,26 @@ section { padding: 70px 0; }
   flex-shrink: 0;
 }
 
-.opcion .info { flex: 1; }
+/* min-width: 0 deja que el texto se parta dentro de su columna en vez de
+   empujar el ancho de la fila. */
+.opcion .info { flex: 1 1 auto; min-width: 0; }
 .opcion .info strong { color: var(--azul); font-size: 0.98rem; }
 .opcion .info small { display: block; color: var(--texto-suave); }
 
-.opcion .cantidad {
-  width: 74px;
+/* El selector lleva input[type="number"] a propósito: la regla general
+   `.campo input[type="number"] { width: 100% }` tiene la misma especificidad
+   que `.opcion .cantidad` y le ganaba, dejando el campo con todo el ancho y
+   el texto del servicio aplastado en una columna de 100px. */
+.opcion input[type="number"].cantidad {
+  flex: 0 0 84px;
+  width: 84px;
+  min-width: 0;
   padding: 7px 8px;
   border: 1.5px solid var(--borde);
   border-radius: 8px;
   font-size: 0.95rem;
   align-self: center;
+  text-align: center;
 }
 
 .fila-doble { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
