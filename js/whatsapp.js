@@ -31,6 +31,8 @@
       "Hola AliadoPyme, necesito un prevencionista de riesgos para mi empresa. Somos ",
     "tecnologia":
       "Hola AliadoPyme, quiero consultar por servicios de tecnología. Lo que necesito es: ",
+    "pagina-web-gratis":
+      "Hola AliadoPyme, vi lo de la página web sin costo y quiero uno de los cupos. Mi empresa es: ",
     "privacidad":
       "Hola AliadoPyme, tengo una consulta sobre el tratamiento de mis datos.",
     "404":
